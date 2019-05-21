@@ -10,6 +10,9 @@ class Header extends Component {
     <div className="headerMenu">
       <ul>
       <li><NavLink exact to='/'>Home</NavLink></li>
+      <li><NavLink to='/login-page'>Login</NavLink></li>
+      {this.props.isAuthenticated ?
+      <li><a onClick={this.handleLogoutClick} href='#'>Logout</a></li> : null}
       </ul>
     </div>
   )};
