@@ -11,13 +11,13 @@ import BaseLayout from './components/BaseLayout.js';
 import Login from './components/Login';
 import { MovieList } from './components/MovieList';
 
-// import requireAuth from './components/requireAuth'
+import requireAuth from './components/utils/requireAuth'
 import * as serviceWorker from './serviceWorker';
 import reducer from './components/stores/reducers/reducer';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import {setAuthenticationHeader} from './components/utils/authentication';
 
-
+//<Route path='/profile' component={requireAuth(Profile)}/>
 
 const store = createStore(reducer,devToolsEnhancer(
   // Specify custom devTools options

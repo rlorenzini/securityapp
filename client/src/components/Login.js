@@ -20,7 +20,6 @@ class Login extends Component {
     })
     .then(response=>{
 
-      console.log("button was clicked")
       let token = response.data.token
       let username = response.data.username
       console.log(token)
