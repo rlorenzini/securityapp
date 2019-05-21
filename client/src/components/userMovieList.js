@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
 import movieData from '../movieDataTest.json'
+import handleCountdown from './utils/handleCountdown'
 export class MovieList extends Component {
     constructor() {
         super()
@@ -50,7 +51,7 @@ export class MovieList extends Component {
                         <img src={movie.image}></img>
                         <p>{movie.title}</p>
                         <p>{movie.unogsdate}</p>
-                        <p>Countdown</p>
+                        <p>{handleCountdown(movie.unogsdate)} days remaining</p>
                         <p>{}</p>
                     </div>
                 </li>
