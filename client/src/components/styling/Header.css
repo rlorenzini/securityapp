@@ -1,0 +1,18 @@
+.headerMenu {
+  background-color: lightblue;
+  color: white;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.headerMenu a {
+  color: black;
+  margin: 5px;
+}
+.headerMenu a:active {
+  color: white;
+}
+.headerMenu ul li {
+  list-style: none;
+}
