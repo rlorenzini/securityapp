@@ -29,19 +29,22 @@ export class MovieList extends Component {
     render() {
         let movies = this.state.movies
         let movieItem = movies.map((movie) => {
+            return (
+                <li key={movie.imdbid}>
+                    <div>
+                        <img src={movie.imageURL}></img>
+                        <p>{movie.title}</p>
+                        <p>{movie.expiration}</p>
+                        <p>Countdown</p>
+                        <p>{}</p>
+                    </div>
+                </li>
+
+            )
 
         })
         return (
-            <li key={movies.imdbid}>
-                <div>
-                    <img src={movies.movieURL}></img>
-                    <p>{movies.title}</p>
-                    <p>{movies.expiration}</p>
-                    <p>Countdown</p>
-                    <p>{}</p>
-                </div>
-            </li>
-
+            <ul>{movieItem}</ul>
         )
     }
 }
