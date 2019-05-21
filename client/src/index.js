@@ -10,7 +10,7 @@ import App from './App';
 import BaseLayout from './components/BaseLayout.js';
 import Login from './components/Login';
 import { MovieList } from './components/userMovieList';
-//import exampleMovieList from './components/exampleMovieList';
+import { ExampleMovieList } from './components/exampleMovieList';
 
 import requireAuth from './components/utils/requireAuth'
 import * as serviceWorker from './serviceWorker';
@@ -34,6 +34,7 @@ ReactDOM.render(
 <Switch>
 <Route path='/' exact component={App}/>
 <Route path='/userMovies' component={MovieList} />
+<Route path='/exampleMovies' component={ExampleMovieList} />
 <Route path='/login-page' component={Login}/>
 </Switch>
 </BaseLayout>
