@@ -9,7 +9,8 @@ import './index.css';
 import App from './App';
 import BaseLayout from './components/BaseLayout.js';
 import Login from './components/Login';
-import { MovieList } from './components/MovieList';
+import { MovieList } from './components/userMovieList';
+//import exampleMovieList from './components/exampleMovieList';
 
 import requireAuth from './components/utils/requireAuth'
 import * as serviceWorker from './serviceWorker';
@@ -18,6 +19,7 @@ import { devToolsEnhancer } from 'redux-devtools-extension';
 import {setAuthenticationHeader} from './components/utils/authentication';
 
 //<Route path='/profile' component={requireAuth(Profile)}/>
+//<Route path='/exampleMovies' component={exampleMovieList} />
 
 const store = createStore(reducer,devToolsEnhancer(
   // Specify custom devTools options
@@ -31,7 +33,7 @@ ReactDOM.render(
 <BaseLayout>
 <Switch>
 <Route path='/' exact component={App}/>
-<Route path='/movies' component={MovieList} />
+<Route path='/userMovies' component={MovieList} />
 <Route path='/login-page' component={Login}/>
 </Switch>
 </BaseLayout>
