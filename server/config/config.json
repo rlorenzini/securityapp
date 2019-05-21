@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "eynimgbm",
+    "password": "lK1b4iscI10URakYFDk3ueEWBT3cbHVt",
+    "database": "eynimgbm",
+    "host": "otto.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "eynimgbm",
+    "password": "lK1b4iscI10URakYFDk3ueEWBT3cbHVt",
+    "database": "eynimgbm",
+    "host": "otto.db.elephantsql.com",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "eynimgbm",
+    "password": "lK1b4iscI10URakYFDk3ueEWBT3cbHVt",
+    "database": "eynimgbm",
+    "host": "otto.db.elephantsql.com",
+    "dialect": "postgres"
+  }
+}
