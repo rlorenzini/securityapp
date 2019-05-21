@@ -9,12 +9,14 @@ import './index.css';
 import App from './App';
 import BaseLayout from './components/BaseLayout.js';
 import Login from './components/Login';
+import { MovieList } from './components/MovieList';
 
 // import requireAuth from './components/requireAuth'
 import * as serviceWorker from './serviceWorker';
 import reducer from './components/stores/reducers/reducer';
 import { devToolsEnhancer } from 'redux-devtools-extension';
 import {setAuthenticationHeader} from './components/utils/authentication';
+
 
 
 const store = createStore(reducer,devToolsEnhancer(
@@ -29,6 +31,7 @@ ReactDOM.render(
 <BaseLayout>
 <Switch>
 <Route path='/' exact component={App}/>
+<Route path='/movies' component={MovieList} />
 <Route path='/login-page' component={Login}/>
 </Switch>
 </BaseLayout>
@@ -36,6 +39,7 @@ ReactDOM.render(
 </Provider>
 ,
 document.getElementById('root'));
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

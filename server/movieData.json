@@ -1,4 +1,4 @@
-jsonData = [{
+{
     "COUNT": "58",
     "ITEMS": [
         {
@@ -815,4 +815,3 @@ jsonData = [{
         }
     ]
 }
-] 
