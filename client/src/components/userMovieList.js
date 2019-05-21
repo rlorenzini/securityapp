@@ -27,6 +27,20 @@ export class MovieList extends Component {
             rating: ''
         }
     }
+    componentDidMount() {
+        let url = "http://localhost:8080/expiring"
+        fetch(url)
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+                this.setState({
+                    ...this.state.movies,
+                    movies: json
+                })
+            })
+        // console.log(this.state)
+
+    }
     render() {
         let movies = this.state.movies.ITEMS
         let movieItem = movies.map((movie) => {
@@ -35,7 +49,7 @@ export class MovieList extends Component {
                     <div>
                         <img src={movie.image}></img>
                         <p>{movie.title}</p>
-                        <p>{movie.expiration}</p>
+                        <p>{movie.unogsdate}</p>
                         <p>Countdown</p>
                         <p>{}</p>
                     </div>
