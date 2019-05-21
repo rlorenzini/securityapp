@@ -3,8 +3,8 @@
   color: white;
   list-style: none;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  /* align-items: flex-start; */
+  /* justify-content: flex-start; */
 }
 .headerMenu a {
   color: black;
@@ -12,6 +12,11 @@
 }
 .headerMenu a:active {
   color: white;
+}
+.headerMenu ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .headerMenu ul li {
   list-style: none;
