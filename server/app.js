@@ -33,8 +33,6 @@ function authenticate(req, res, next) {
       res.status(401).json({ message: 'Token invalid' })
     }
   })
-  console.log(headers)
-  console.log(decoded)
 }
 
 app.get('/username', authenticate, (req, res) => {
