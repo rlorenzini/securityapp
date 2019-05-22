@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
-import movieData from '../movieDataTest.json'
+import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
+import fs from 'file-system'
 export class MovieList extends Component {
     constructor() {
         super()
@@ -37,7 +38,6 @@ export class MovieList extends Component {
         let movieItem = movies.map((movie) => {
             return (
               <div>
-              <h1>This is the USER list</h1>
                 <li key={movie.imdbid}>
                     <div>
                         <img src={movie.image} alt={brokenImg}></img>
@@ -53,7 +53,10 @@ export class MovieList extends Component {
 
         })
         return (
+          <div>
+          <h1>This is the USER list</h1>
             <ul>{movieItem}</ul>
+            </div>
         )
     }
 }
