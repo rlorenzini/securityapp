@@ -1,21 +1,43 @@
 const express = require('express'),
   app = express(),
+  unirest = require('unirest'),
+  fs = require('file-system'),
   bodyParser = require('body-parser'),
   cors = require('cors'),
   Sequelize = require('sequelize'),
   Op = Sequelize.Op,
   models = require('./models'),
   jwt = require('jsonwebtoken'),
-  MovieData = require('./movieData.json')
+  MovieData = require('./movieData.json'),
   bcrypt = require('bcrypt'),
   SALT_ROUNDS = 10,
   myPlaintextPassword = 's0/\/\P4$$w0rD',
   someOtherPlaintextPassword = 'not_bacon',
+  schedule = require('node-schedule'),
   PORT = process.env.PORT || 8080;
+
+const toBeRemovedArray = {}
+
+const keys = require('./.env.json')
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
+
+
+schedule.scheduleJob('* * 23 * *', function(){
+  console.log('Daily API call initiated.');
+  unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
+  .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
+  .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY}`)
+  .end(function (result) {
+    console.log(result.status, result.headers);
+    //console.log(result.body) to see all data
+    let data = JSON.stringify(result.body)
+    fs.writeFile('./movieData.json', data)
+  });
+})
 
 function authenticate(req, res, next) {
   let headers = req.headers["authorization"]
