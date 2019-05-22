@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import brokenImg from '../images/clock.png'
 // import { Link } from 'react-router-dom';
 // import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
 
@@ -34,7 +35,7 @@ export class ExampleMovieList extends Component {
               <h1>This is the EXAMPLE list</h1>
                 <li key={movie.imdbid}>
                     <div>
-                        <img src={movie.imageURL}></img>
+                        <img src={movie.imageURL} alt={brokenImg}></img>
                         <p>{movie.title}</p>
                         <p>{movie.expiration}</p>
                         <p>Countdown</p>

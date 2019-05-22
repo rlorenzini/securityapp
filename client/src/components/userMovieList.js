@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
 import movieData from '../movieDataTest.json'
 import handleCountdown from './utils/handleCountdown'
+import brokenImg from '../images/clock.png'
 export class MovieList extends Component {
     constructor() {
         super()
@@ -39,7 +40,7 @@ export class MovieList extends Component {
               <h1>This is the USER list</h1>
                 <li key={movie.imdbid}>
                     <div>
-                        <img src={movie.image}></img>
+                        <img src={movie.image} alt={brokenImg}></img>
                         <p>{movie.title}</p>
                         <p>{movie.unogsdate}</p>
                         <p>{handleCountdown(movie.unogsdate)} days remaining</p>
