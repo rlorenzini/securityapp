@@ -4,10 +4,12 @@ import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
 import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
-import fs from 'file-system'
+
+
+
 export class MovieList extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             movies: movieData,
             imdbid: '',
@@ -24,17 +26,17 @@ export class MovieList extends Component {
         fetch(url)
             .then(response => response.json())
             .then(json => {
-                console.log(json)
+                // console.log(json)
                 this.setState({
                     ...this.state.movies,
                     movies: json
                 })
-            })
-        // console.log(this.state)
-
-    }
+                localStorage.setItem('movieData', JSON.stringify(json))
+          })
+        }
     render() {
-        let movies = this.state.movies.ITEMS
+        // let movies = this.state.movies.ITEMS
+        let movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
         let movieItem = movies.map((movie) => {
             return (
               <div>
