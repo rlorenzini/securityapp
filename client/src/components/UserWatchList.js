@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
-import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
-import movieData from '../movieDataTest.json'
+import * as keys from '../.env.json';
+import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
@@ -17,9 +17,9 @@ export class UserWatchList extends Component {
 
     handleFindMovie = () => {
         let title = this.state.title
-        let moviesURL = "http://www.omdbapi.com/?s=" + title + "&apikey=1f0fd775"
+        let moviesURL = "http://www.omdbapi.com/?s=" + title + "&apikey=" + keys.OMDB_API_KEY
 
-        console.log(title)
+        console.log(keys)
         fetch(moviesURL)
             .then(response => response.json())
             .then(json => {
@@ -48,8 +48,23 @@ export class UserWatchList extends Component {
         })
     }
 
-    handleAddToWatchList = () => {
+    handleAddToWatchList = (e) => {
         console.log("Clicked")
+        console.log(e.target.name)
+        console.log(e.target.id)
+        fetch('http://localhost:8080/add-movie', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                title: e.target.name,
+                imdbID: e.target.id
+            })
+        })
+
+
+
     }
 
     render() {
@@ -59,7 +74,7 @@ export class UserWatchList extends Component {
                 <li key={movie.imdbID}>
                     <img className="omdb-poster" src={movie.Poster}></img>
                     <p>{movie.Title}</p>
-                    <button onClick={this.handleAddToWatchList}>Add to Watch List</button>
+                    <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
                 </li>
             )
         })

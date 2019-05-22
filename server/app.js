@@ -31,17 +31,17 @@ app.use(favicon(__dirname + '/build/favicon.ico'));
 //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
 
-schedule.scheduleJob('* * */23 * *', function(){
+schedule.scheduleJob('* * */23 * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
-  .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
-  .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY}`)
-  .end(function (result) {
-    console.log(result.status, result.headers);
-    //console.log(result.body) to see all data
-    let data = JSON.stringify(result.body)
-    fs.writeFile('./movieData.json', data)
-  });
+    .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
+    .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY}`)
+    .end(function (result) {
+      console.log(result.status, result.headers);
+      //console.log(result.body) to see all data
+      let data = JSON.stringify(result.body)
+      fs.writeFile('./movieData.json', data)
+    });
 })
 
 function authenticate(req, res, next) {
@@ -66,28 +66,28 @@ app.get('/username', authenticate, (req, res) => {
   res.send(currentUser[currentUser.length - 1])
 })
 
-app.post('/register',(req,res)=>{
-  let username=req.body.username
-  let password=req.body.password
-  let firstName=req.body.firstName
-  let lastName=req.body.lastName
-  let email=req.body.email
+app.post('/register', (req, res) => {
+  let username = req.body.username
+  let password = req.body.password
+  let firstName = req.body.firstName
+  let lastName = req.body.lastName
+  let email = req.body.email
   models.User.findOne({
-    where:{
-      username:username
+    where: {
+      username: username
     }
-  }).then((user)=>{
+  }).then((user) => {
     if (user) {
-        res.render('register', { message: "User name already exists!" })
-      } else {
+      res.render('register', { message: "User name already exists!" })
+    } else {
       bcrypt.hash(password, SALT_ROUNDS, function (error, hash) {
         if (error == null) {
           let user = models.User.build({
-            username:username,
-            password:hash,
-            firstName:firstName,
-            lastName:lastName,
-            email:email
+            username: username,
+            password: hash,
+            firstName: firstName,
+            lastName: lastName,
+            email: email
           })
           user.save()
         }
@@ -125,6 +125,23 @@ app.post('/login', (req, res) => {
 app.get('/expiring', (req, res) => {
   res.json(MovieData)
 })
+app.post('/add-movie', (req, res) => {
+  let title = req.body.title
+  let imdbID = req.body.imdbID
+  console.log(title)
+  console.log(imdbID)
+
+  let movie = models.WatchList.build({
+    title: title,
+    imdbID: imdbID,
+    // ======== NEED userID: userID =========
+  })
+  movie.save().then((savedMovie) => {
+  }) / then(() => {
+    res.json({ success: true, message: "Movie was added to watch list." })
+  }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+})
+
 
 app.listen(PORT, () => {
   console.log(`Server running at localhost:${PORT}`);
