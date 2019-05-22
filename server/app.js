@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 
 
-schedule.scheduleJob('* * 23 * *', function(){
+schedule.scheduleJob('* * */23 * *', function(){
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
   .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
