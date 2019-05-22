@@ -16,9 +16,7 @@ class Header extends Component {
       <ul>
       <li><NavLink exact to='/'>Home</NavLink></li>
       {this.props.isAuthenticated ? <li><NavLink to='/userMovies'>Watch List</NavLink></li> : <li><NavLink to='/exampleMovies'>Watch List</NavLink></li>}
-      {this.props.isAuthenticated ? null : <li><NavLink to='/login-page'>Login</NavLink></li>}
-      {this.props.isAuthenticated ?
-      <li><NavLink to="#" onClick={this.handleLogoutClick}>Logout</NavLink></li> : null}
+      {this.props.isAuthenticated ? <li><NavLink to="#" onClick={this.handleLogoutClick}>Logout</NavLink></li> : <li><NavLink to='/login-page'>Login</NavLink></li>}
       </ul>
     </div>
   )};
