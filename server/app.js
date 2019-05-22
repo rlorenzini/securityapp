@@ -16,8 +16,6 @@ const express = require('express'),
   schedule = require('node-schedule'),
   PORT = process.env.PORT || 8080;
 
-const toBeRemovedArray = {}
-
 const keys = require('./.env.json')
 
 app.use(cors())
