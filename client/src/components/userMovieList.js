@@ -43,7 +43,7 @@ export class MovieList extends Component {
                         <img src={movie.image} alt={brokenImg}></img>
                         <p>{movie.title}</p>
                         <p>{movie.unogsdate}</p>
-                        <p>{handleCountdown(movie.unogsdate)} days remaining</p>
+                        <p>{(handleCountdown(movie.unogsdate) === 0) ? `No Longer Available` : (handleCountdown(movie.unogsdate) === 1) ? `Last Day to Watch` : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
                         <p>{}</p>
                     </div>
                 </li>
