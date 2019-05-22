@@ -6,8 +6,13 @@ const express = require('express'),
   Op = Sequelize.Op,
   models = require('./models'),
   jwt = require('jsonwebtoken'),
-  PORT = process.env.PORT || 8080,
   MovieData = require('./movieData.json')
+  bcrypt = require('bcrypt'),
+  SALT_ROUNDS = 10,
+  myPlaintextPassword = 's0/\/\P4$$w0rD',
+  someOtherPlaintextPassword = 'not_bacon',
+  PORT = process.env.PORT || 8080;
+
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -36,21 +41,34 @@ app.get('/username', authenticate, (req, res) => {
   res.send(currentUser[currentUser.length - 1])
 })
 
-app.post('/register', (req, res) => {
-  let username = req.body.username
-  let password = req.body.password
-  let firstName = req.body.firstName
-  let lastName = req.body.lastName
-  let email = req.body.email
-  let user = models.User.build({
-    username: username,
-    password: password,
-    firstName: firstName,
-    lastName: lastName,
-    email: email
+app.post('/register',(req,res)=>{
+  let username=req.body.username
+  let password=req.body.password
+  let firstName=req.body.firstName
+  let lastName=req.body.lastName
+  let email=req.body.email
+  models.User.findOne({
+    where:{
+      username:username
+    }
+  }).then((user)=>{
+    if (user) {
+        res.render('register', { message: "User name already exists!" })
+      } else {
+      bcrypt.hash(password, SALT_ROUNDS, function (error, hash) {
+        if (error == null) {
+          let user = models.User.build({
+            username:username,
+            password:hash,
+            firstName:firstName,
+            lastName:lastName,
+            email:email
+          })
+          user.save()
+        }
+      })
+    }
   })
-  user.save()
-  // users.push(user)
 })
 
 app.post('/login', (req, res) => {

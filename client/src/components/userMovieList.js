@@ -46,6 +46,8 @@ export class MovieList extends Component {
         let movies = this.state.movies.ITEMS
         let movieItem = movies.map((movie) => {
             return (
+              <div>
+              <h1>This is the USER list</h1>
                 <li key={movie.imdbid}>
                     <div>
                         <img src={movie.image}></img>
@@ -55,6 +57,7 @@ export class MovieList extends Component {
                         <p>{}</p>
                     </div>
                 </li>
+                </div>
 
             )
 
