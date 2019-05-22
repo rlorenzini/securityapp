@@ -1,0 +1,19 @@
+.lists-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+.watchlist{
+    text-align: left;
+    border: 2px solid grey;
+}
+.omdb-list{
+    text-align: left;
+    border: 2px solid grey;
+}
+.omdb-list > ul {
+    list-style: none;
+}
+
+.omdb-poster {
+    width: 60px;
+}
