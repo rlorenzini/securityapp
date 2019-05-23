@@ -128,15 +128,15 @@ app.get('/expiring', (req, res) => {
 app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID
-  let userid = req.body.userid
+  let userid = parseInt(req.body.userid)
   console.log(title)
   console.log(imdbID)
   console.log(userid)
 
   let movie = models.WatchList.build({
     title: title,
-    imdbid: imdbID
-    // ======== NEED userID: userID =========
+    imdbid: imdbID,
+    userid: userid
   })
   movie.save().then((savedMovie) => {
   }).then(() => {
