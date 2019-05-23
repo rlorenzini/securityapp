@@ -1,66 +1,69 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Register from './Register.js';
 import axios from 'axios';
-import {connect} from 'react-redux';
-import {setAuthenticationHeader} from './utils/authentication.js'
+import { connect } from 'react-redux';
+import { setAuthenticationHeader } from './utils/authentication.js'
 
 class Login extends Component {
-  constructor(){
+  constructor() {
     super()
-    this.state={
-      username:'',
-      password:''
+    this.state = {
+      username: '',
+      password: ''
     }
   }
 
-  handleSubmitLogin=()=>(
-    axios.post('http://localhost:8080/login',{
+  handleSubmitLogin = () => (
+    axios.post('http://localhost:8080/login', {
       username: this.state.username,
       password: this.state.password,
     })
-    .then(response=>{
+      .then(response => {
 
-      let token = response.data.token
-      let username = response.data.username
-      console.log(token)
+        let token = response.data.token
+        let username = response.data.username
+        let userid = response.data.id
+        console.log(token)
+        console.log(userid)
 
-      localStorage.setItem('jsonwebtoken',token)
-      this.props.onAuthenticated(username,token)
+        localStorage.setItem('userid', userid)  //Mike TEST 
+        localStorage.setItem('jsonwebtoken', token)
+        this.props.onAuthenticated(username, token)
 
-      setAuthenticationHeader(token)
-    })
-    .catch(error=>console.log(error))
+        setAuthenticationHeader(token)
+      })
+      .catch(error => console.log(error))
   )
 
-  handleInputChange=(e)=>(
+  handleInputChange = (e) => (
 
     this.setState({
-      [e.target.name]:e.target.value
+      [e.target.name]: e.target.value
     })
   )
 
 
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
-      <h1>Login</h1>
-      <input onChange={this.handleInputChange} name="username" placeholder="username"></input>
-      <input onChange={this.handleInputChange} name="password" placeholder="password"></input>
-      <button onClick={this.handleSubmitLogin}>Login</button>
-      <Register/>
+        <h1>Login</h1>
+        <input onChange={this.handleInputChange} name="username" placeholder="username"></input>
+        <input onChange={this.handleInputChange} name="password" placeholder="password"></input>
+        <button onClick={this.handleSubmitLogin}>Login</button>
+        <Register />
       </div>
     )
   }
 }
-const mapStateToProps=(state)=>{
-  return{
-    uname:state.username
+const mapStateToProps = (state) => {
+  return {
+    uname: state.username
   }
 }
-const mapDispatchToProps=(dispatch)=>{
-  return{
-    onAuthenticated:(username,token)=>dispatch({type:'ON_AUTH',username:username,token:token})
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuthenticated: (username, token) => dispatch({ type: 'ON_AUTH', username: username, token: token })
   }
 }
 

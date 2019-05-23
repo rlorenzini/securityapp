@@ -67,6 +67,7 @@ export class UserWatchList extends Component {
     // }
 
     render() {
+<<<<<<< HEAD
         // let omdbList = this.state.returnedMovies
         // let movieItems = omdbList.map((movie) => {
         //     return (
@@ -77,6 +78,18 @@ export class UserWatchList extends Component {
         //         </li>
         //     )
         // })
+=======
+        let omdbList = this.state.returnedMovies
+        let movieItems = omdbList.map((movie) => {
+            return (
+                <li key={movie.imdbID}>
+                    <img className="omdb-poster" src={movie.Poster} alt={brokenImg}></img>
+                    <p>{movie.Title}</p>
+                    <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
+                </li>
+            )
+        })
+>>>>>>> 1a3750ea7d2689d4d75e7cbec94553f61fed3bf3
         return (
             <div>
                 <div className="lists-container">
@@ -105,4 +118,3 @@ export class UserWatchList extends Component {
         )
     }
 }
-

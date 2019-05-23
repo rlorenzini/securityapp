@@ -3,14 +3,16 @@
     justify-content: space-evenly;
 }
 .watchlist{
-    text-align: left;
+    width:  50%;
+    text-align: center;
     border: 2px solid grey;
 }
 .omdb-list{
-    text-align: left;
+    width:  50%;
+    text-align: center;
     border: 2px solid grey;
 }
-.omdb-list > ul {
+.ombd-li {
     list-style: none;
 }
 
