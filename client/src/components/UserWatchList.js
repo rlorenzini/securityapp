@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import * as keys from '../.env.json';
 import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
@@ -72,7 +71,7 @@ export class UserWatchList extends Component {
         let movieItems = omdbList.map((movie) => {
             return (
                 <li key={movie.imdbID}>
-                    <img className="omdb-poster" src={movie.Poster}></img>
+                    <img className="omdb-poster" src={movie.Poster} alt={brokenImg}></img>
                     <p>{movie.Title}</p>
                     <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
                 </li>
@@ -98,4 +97,3 @@ export class UserWatchList extends Component {
         )
     }
 }
-
