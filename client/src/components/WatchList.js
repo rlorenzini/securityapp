@@ -5,49 +5,52 @@ import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
+import axios from 'axios';
 
 export class WatchList extends Component {
     constructor() {
         super()
         this.state = {
-            title: '',
-            returnedMovies: [],
+            watchList: [],
+            userid: localStorage.getItem('userid')
         }
     }
-
-    handleAddToWatchList = (e) => {
-        console.log("Clicked")
-        console.log(e.target.name)
-        console.log(e.target.id)
-        fetch('http://localhost:8080/add-movie', {
-            method: 'POST',
+    componentDidMount() {
+        console.log(this.state.userid)
+        let url = "http://localhost:8080/user-watch-list"
+        fetch(url, {
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: e.target.name,
-                imdbID: e.target.id
+                userid: this.state.userid
             })
-        })
-
-
+        }).then(response => response.json())
+            .then(json => {
+                console.log(json)
+                this.setState({
+                    watchList: json
+                })
+            })
 
     }
 
+
     render() {
-        // let omdbList = this.state.returnedMovies
-        // let movieItems = omdbList.map((movie) => {
-        //     return (
-        //         <li key={movie.imdbID}>
-        //             <img className="omdb-poster" src={movie.Poster}></img>
-        //             <p>{movie.Title}</p>
-        //             <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
-        //         </li>
-        //     )
-        // })
+        let userList = this.state.watchList
+        let movieItems = userList.map((movie) => {
+            return (
+                <li key={movie.imdbID}>
+                    <p>{movie.title}</p>
+                </li>
+            )
+        })
+
         return (
             <div>
                 <h1>Your WatchList</h1>
+                <ul>{movieItems}</ul>
             </div>
         )
     }
