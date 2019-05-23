@@ -32,32 +32,38 @@ export class MovieList extends Component {
                     movies: json
                 })
                 localStorage.setItem('movieData', JSON.stringify(json))
-          })
-        }
+            })
+    }
     render() {
-        // let movies = this.state.movies.ITEMS
-        let movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
+        // MIKES'S CODE =======
+        let movies = []
+        if (localStorage.getItem('movieData') === null) {
+            movies = this.state.movies.ITEMS
+        } else {
+            movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
+        }
+        // MIKES'S CODE ======
         let movieItem = movies.map((movie) => {
             return (
-              <div>
-                <li key={movie.imdbid}>
-                    <div>
-                        <img src={movie.image} alt={brokenImg}></img>
-                        <p>{movie.title}</p>
-                        <p>{movie.unogsdate}</p>
-                        <p>{(handleCountdown(movie.unogsdate) === 0) ? `No Longer Available` : (handleCountdown(movie.unogsdate) === 1) ? `Last Day to Watch` : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
-                        <p>{}</p>
-                    </div>
-                </li>
+                <div>
+                    <li key={movie.imdbid}>
+                        <div>
+                            <img src={movie.image} alt={brokenImg}></img>
+                            <p>{movie.title}</p>
+                            <p>{movie.unogsdate}</p>
+                            <p>{(handleCountdown(movie.unogsdate) === 0) ? `No Longer Available` : (handleCountdown(movie.unogsdate) === 1) ? `Last Day to Watch` : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
+                            <p>{}</p>
+                        </div>
+                    </li>
                 </div>
 
             )
 
         })
         return (
-          <div>
-          <h1>This is the USER list</h1>
-            <ul>{movieItem}</ul>
+            <div>
+                <h1>This is the USER list</h1>
+                <ul>{movieItem}</ul>
             </div>
         )
     }
