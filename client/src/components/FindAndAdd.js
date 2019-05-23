@@ -37,15 +37,6 @@ export class FindAndAdd extends Component {
     handleTextBoxChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
-        }, () => {
-            // console.log(this.state.title)
-            // let omdbList = this.state.returnedMovies
-            // let movieItems = omdbList.map((movie) => {
-            //     return (
-            //         movie.imdbID
-            //     )
-            // })
-            // console.log(movieItems)
         })
     }
 
@@ -64,7 +55,6 @@ export class FindAndAdd extends Component {
                 userid: this.state.userid
             })
         })
-
 
 
     }

@@ -144,6 +144,20 @@ app.post('/add-movie', (req, res) => {
   }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
 })
 
+//Getting USER WATCHLIST
+app.post('/user-watch-list', (req, res) => {
+  let userid = req.body.userid
+  console.log(userid)
+  models.WatchList.findAll({
+    where: {
+      userid: userid
+    }
+  })
+    .then(result => {
+      res.json(result)
+    }).catch(error => res.json({ success: false, message: "User Watch List cannot be retrieved." }))
+})
+
 
 app.listen(PORT, () => {
   console.log(`Server running at localhost:${PORT}`);
