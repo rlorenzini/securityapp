@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     imdbid: DataTypes.STRING
   }, {});
-  WatchList.associate = function(models) {
+  WatchList.associate = function (models) {
     // associations can be defined here
   };
   return WatchList;

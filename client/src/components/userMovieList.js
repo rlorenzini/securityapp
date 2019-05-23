@@ -62,7 +62,7 @@ export class MovieList extends Component {
         })
         return (
             <div>
-                <h1>This is the USER list</h1>
+                <h1>This is What's Leaving</h1>
                 <ul>{movieItem}</ul>
             </div>
         )

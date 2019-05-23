@@ -113,7 +113,7 @@ app.post('/login', (req, res) => {
       jwt.sign({ username: username }, 'secret',
         function (err, token) {
           if (token) {
-            res.json({ username: username, token: token })
+            res.json({ username: username, token: token, id: user.id }) //Mike added user.id to response
           } else {
             res.status(500).json({ message: 'unable to generate token' })
           }
@@ -128,16 +128,18 @@ app.get('/expiring', (req, res) => {
 app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID
+  let userid = req.body.userid
   console.log(title)
   console.log(imdbID)
+  console.log(userid)
 
   let movie = models.WatchList.build({
     title: title,
-    imdbID: imdbID,
+    imdbid: imdbID
     // ======== NEED userID: userID =========
   })
   movie.save().then((savedMovie) => {
-  }) / then(() => {
+  }).then(() => {
     res.json({ success: true, message: "Movie was added to watch list." })
   }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
 })
