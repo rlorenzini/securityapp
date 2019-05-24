@@ -2,19 +2,23 @@
     display: flex;
     justify-content: space-evenly;
 }
+
 .userWatchListBody {
   background-color: black;
   color: white;
 }
+
 .watchlist{
     width:  50%;
     text-align: center;
     border: 2px solid grey;
 }
+
 .userWatchListDiv li {
   list-style: none;
   color: #689775;
 }
+
 .omdbDiv input {
   background-color: #333333;
   border: none;
@@ -27,6 +31,7 @@
   margin: 4px 2px;
   border-radius: 8px;
 }
+
 .omdbDiv button {
   border-color: black;
   color: white;
@@ -40,6 +45,7 @@
   margin: 4px 2px;
   border-radius: 8px;
 }
+
 .omdb-list {
     width:  50%;
     text-align: center;
@@ -51,4 +57,8 @@
 
 .omdb-poster {
     width: 60px;
+}
+
+.exampleWatchList {
+  color: white;
 }

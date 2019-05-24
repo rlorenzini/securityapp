@@ -10,34 +10,42 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
 .listElementContainer {
   height: 330px;
   width: 200px;
   margin: 5px;
 }
+
 .noLongerAvailable {
   font-weight: 700;
   color: #E50A13;
 }
+
 .lastDayToWatch {
   font-weight: 700;
   color: #FF652F;
 }
+
 .listElementHeader {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .listElement p {
   margin-block-start: 0;
   margin-block-end: 0;
 }
+
 .listElementMovieTitle {
   font-weight: bold;
 }
+
 .listElementMovieEndDate {
   font-weight: 400;
 }
+
 .listElementMovieCountdown {
   font-weight: 500;
   color: #689775;

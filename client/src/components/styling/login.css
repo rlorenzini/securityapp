@@ -1,9 +1,11 @@
 .loginBody {
   color:white;
 }
+
 .loginBody h1 {
   color: white;
 }
+
 .loginBody button {
   border-color: black;
   color: white;
@@ -17,6 +19,7 @@
   margin: 4px 2px;
   border-radius: 8px;
 }
+
 .loginBody input {
   background-color: #333333;
   border: none;

@@ -9,6 +9,7 @@
   /* align-items: flex-start; */
   /* justify-content: flex-start; */
 }
+
 .websiteTitle {
   margin-block-start: 0;
   margin-block-end: 0;
@@ -17,14 +18,17 @@
   font-size: 30px;
   text-decoration: none;
 }
+
 .headerMenu a {
   color: #C7493A;
   margin: 5px;
   text-decoration: none;
 }
+
 .headerMenu a:active {
   color: #C7493A;
 }
+
 .headerMenu ul {
   display: flex;
   align-items: center;
@@ -33,6 +37,7 @@
   margin-block-end: 0;
   padding: 0 20px 0 20px;
 }
+
 .headerMenu ul li {
   list-style: none;
 }
