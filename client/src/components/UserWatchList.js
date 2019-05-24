@@ -4,7 +4,7 @@ import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
-import { WatchList } from './WatchList.js';
+import WatchList from './WatchList.js';
 import { FindAndAdd } from './FindAndAdd.js';
 
 export class UserWatchList extends Component {

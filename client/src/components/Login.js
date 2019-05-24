@@ -3,6 +3,7 @@ import Register from './Register.js';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setAuthenticationHeader } from './utils/authentication.js'
+import store from '../components/stores/store'
 
 class Login extends Component {
   constructor() {

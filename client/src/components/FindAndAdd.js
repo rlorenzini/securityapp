@@ -5,6 +5,7 @@ import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
+import store from '../components/stores/store'
 
 export class FindAndAdd extends Component {
     constructor() {

@@ -6,10 +6,15 @@ import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
 import axios from 'axios';
+import store from '../components/stores/store'
+import { connect } from 'react-redux'
+import findExpired from '../components/utils/findExpired'
 
-export class WatchList extends Component {
-    constructor() {
-        super()
+
+
+class WatchList extends Component {
+    constructor(props) {
+        super(props)
         this.state = {
             watchList: [],
             userid: localStorage.getItem('userid')
@@ -28,21 +33,30 @@ export class WatchList extends Component {
             })
         }).then(response => response.json())
             .then(json => {
-                console.log(json)
-                this.setState({
-                    watchList: json
-                })
+                // ======TESTING =======
+                this.props.onUpdate(json)
+                // console.log(json)
+                //====== TESTING END ======
+                // console.log(json)
+                // this.setState({
+                //     watchList: json
+                // })
             })
+        // console.log(this.props.WatchList)
 
     }
 
 
     render() {
-        let userList = this.state.watchList
-        let movieItems = userList.map((movie) => {
+        let userList = this.props.watchList
+        console.log(userList)
+        let datified = findExpired(userList, movieData)
+        console.log(datified)
+        let movieItems = datified.map((movie) => {
             return (
-                <li key={movie.imdbID}>
+                <li key={movie.imdbid}>
                     <p>{movie.title}</p>
+                    <p>{movie.date}</p>
                 </li>
             )
         })
@@ -55,3 +69,18 @@ export class WatchList extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return {
+        watchList: state.watchList
+    }
+}
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdate: (json) => dispatch({
+            type: 'UPDATE',
+            value: json
+        })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WatchList) 
