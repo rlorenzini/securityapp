@@ -35,11 +35,7 @@ export class MovieList extends Component {
     render() {
         // MIKES'S CODE =======
         let movies = []
-        if (localStorage.getItem('movieData') === null) {
-            movies = this.state.movies.ITEMS
-        } else {
-            movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
-        }
+        movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
         // MIKES'S CODE ======
         let movieItem = movies.map((movie) => {
             return (

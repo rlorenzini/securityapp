@@ -8,7 +8,7 @@ class Header extends Component {
   handleLogoutClick = () => {
     localStorage.removeItem('jsonwebtoken')
     this.props.onLogout()
-    this.props.history.push('/')
+    this.props.history.push('/login-page')
   }
   render() {
     return (

@@ -31,7 +31,7 @@ app.use(favicon(__dirname + '/build/favicon.ico'));
 //   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
 
-schedule.scheduleJob('* * */23 * *', function () {
+schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
     .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
