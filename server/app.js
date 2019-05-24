@@ -129,9 +129,6 @@ app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID
   let userid = parseInt(req.body.userid)
-  console.log(title)
-  console.log(imdbID)
-  console.log(userid)
 
   let movie = models.WatchList.build({
     title: title,
@@ -139,15 +136,23 @@ app.post('/add-movie', (req, res) => {
     userid: userid
   })
   movie.save().then((savedMovie) => {
-  }).then(() => {
-    res.json({ success: true, message: "Movie was added to watch list." })
-  }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+  })
+    .then(() => {
+      models.WatchList.findAll({
+        where: {
+          userid: userid
+        }
+      })
+        .then(result => {
+          res.json(result)
+        })
+    }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
 })
 
 //Getting USER WATCHLIST
 app.post('/user-watch-list', (req, res) => {
   let userid = req.body.userid
-  console.log(userid)
+  // console.log(userid)
   models.WatchList.findAll({
     where: {
       userid: userid

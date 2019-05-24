@@ -5,9 +5,9 @@ import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
-import store from '../components/stores/store'
+import { connect } from 'react-redux'
 
-export class FindAndAdd extends Component {
+class FindAndAdd extends Component {
     constructor() {
         super()
         this.state = {
@@ -55,8 +55,16 @@ export class FindAndAdd extends Component {
                 imdbID: e.target.id,
                 userid: this.state.userid
             })
-        })
+        }).then((response) => response.json())
+            .then(json => {
 
+                // store.dispatch({
+                //     type: 'UPDATE',
+                //     value: json
+                // })
+                console.log(json)
+                this.props.onUpdate(json)
+            })
 
     }
 
@@ -83,3 +91,12 @@ export class FindAndAdd extends Component {
         )
     }
 }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onUpdate: (json) => dispatch({
+            type: 'UPDATE',
+            value: json
+        })
+    }
+}
+export default connect(null, mapDispatchToProps)(FindAndAdd) 

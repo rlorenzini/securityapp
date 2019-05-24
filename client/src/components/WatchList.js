@@ -46,7 +46,9 @@ class WatchList extends Component {
 
     }
 
-
+    removeMovie = () => {
+        console.log("Shit Yeah!")
+    }
     render() {
         let userList = this.props.watchList
         console.log(userList)
@@ -57,7 +59,8 @@ class WatchList extends Component {
                 <li key={movie.imdbid}>
                     <p>{movie.title}</p>
                     <p>{movie.date}</p>
-                </li>
+                    <button onClick={this.removeMovie}>Remove</button>
+                </li >
             )
         })
 
@@ -65,7 +68,7 @@ class WatchList extends Component {
             <div className="userWatchListDiv">
                 <h1>Your WatchList</h1>
                 <ul>{movieItems}</ul>
-            </div>
+            </div >
         )
     }
 }
