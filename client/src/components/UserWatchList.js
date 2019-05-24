@@ -17,7 +17,7 @@ export class UserWatchList extends Component {
 
     render() {
         return (
-            <div>
+            <div className="userWatchListBody">
                 <div className="lists-container">
                     <div className="watchlist">
                         <WatchList />
@@ -30,4 +30,3 @@ export class UserWatchList extends Component {
         )
     }
 }
-
