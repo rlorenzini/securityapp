@@ -60,11 +60,6 @@ class WatchList extends Component {
         }).then((response) => response.json())
             .then(json => {
 
-                // store.dispatch({
-                //     type: 'UPDATE',
-                //     value: json
-                // })
-                console.log(json)
                 this.props.onUpdate(json)
             })
     }
