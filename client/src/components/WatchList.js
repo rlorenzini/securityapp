@@ -46,20 +46,32 @@ class WatchList extends Component {
 
     }
 
-    removeMovie = () => {
-        console.log("Shit Yeah!")
+    removeMovie = (e) => {
+        console.log(e.target.id)
+        fetch('http://localhost:8080/delete-movie', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                imdbid: e.target.id,
+                userid: this.state.userid
+            })
+        }).then((response) => response.json())
+            .then(json => {
+
+                this.props.onUpdate(json)
+            })
     }
     render() {
         let userList = this.props.watchList
-        console.log(userList)
         let datified = findExpired(userList, movieData)
-        console.log(datified)
         let movieItems = datified.map((movie) => {
             return (
                 <li key={movie.imdbid}>
                     <p>{movie.title}</p>
                     <p>{movie.date}</p>
-                    <button onClick={this.removeMovie}>Remove</button>
+                    <button onClick={this.removeMovie} id={movie.imdbid}>Remove</button>
                 </li >
             )
         })

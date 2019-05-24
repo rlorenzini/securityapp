@@ -162,6 +162,31 @@ app.post('/user-watch-list', (req, res) => {
       res.json(result)
     }).catch(error => res.json({ success: false, message: "User Watch List cannot be retrieved." }))
 })
+// Deleting movie from watchlist
+app.post('/delete-movie', (req, res) => {
+  deleteID = req.body.imdbid
+  userid = req.body.userid
+  models.WatchList.destroy({
+    where: {
+      userid: userid,
+      imdbid: deleteID
+    }
+  }).then(() => {
+    models.WatchList.findAll({
+      where: {
+        userid: userid
+      }
+    })
+      .then(result => {
+        res.json(result)
+      })
+  }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+
+})
+
+app.use(function (req, res, next) {
+  res.status(404).send("Sorry can't find that!")
+});
 
 
 app.listen(PORT, () => {
