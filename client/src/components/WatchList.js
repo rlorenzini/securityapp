@@ -34,7 +34,8 @@ class WatchList extends Component {
         }).then(response => response.json())
             .then(json => {
                 // ======TESTING =======
-                this.props.onUpdate(json)
+                let datified = findExpired(json, movieData)
+                this.props.onUpdate(datified)
                 // console.log(json)
                 //====== TESTING END ======
                 // console.log(json)
@@ -59,17 +60,17 @@ class WatchList extends Component {
             })
         }).then((response) => response.json())
             .then(json => {
-
-                this.props.onUpdate(json)
+                let datified = findExpired(json, movieData)
+                this.props.onUpdate(datified)
             })
     }
     render() {
         let userList = this.props.watchList
-        let datified = findExpired(userList, movieData)
-        let movieItems = datified.map((movie) => {
+        // let datified = findExpired(userList, movieData)
+        let movieItems = userList.map((movie) => {
             return (
                 <li key={movie.imdbid}>
-                    <p>{movie.title}</p>
+                    <p className="listElementMovieTitle">{movie.title}</p>
                     <p className="listElementMovieCountdown">{(handleCountdown(movie.date) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.date) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : (handleCountdown(movie.date) === 'Available') ? <p>Available</p> : `${handleCountdown(movie.date)} days remaining`}
                     </p>
                     <button onClick={this.removeMovie} id={movie.imdbid}>Remove</button>

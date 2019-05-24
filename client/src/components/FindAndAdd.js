@@ -6,6 +6,7 @@ import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
 import { connect } from 'react-redux'
+import findExpired from './utils/findExpired'
 
 class FindAndAdd extends Component {
     constructor() {
@@ -62,8 +63,8 @@ class FindAndAdd extends Component {
                 //     type: 'UPDATE',
                 //     value: json
                 // })
-                console.log(json)
-                this.props.onUpdate(json)
+                let datified = findExpired(json, movieData)
+                this.props.onUpdate(datified)
             })
 
     }
