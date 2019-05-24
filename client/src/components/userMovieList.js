@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
-
+import './styling/movieList.css'
+import replaceASCII from './utils/replaceASCII'
 
 
 export class MovieList extends Component {
@@ -38,14 +39,15 @@ export class MovieList extends Component {
         movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
         // MIKES'S CODE ======
         let movieItem = movies.map((movie) => {
+          let str = replaceASCII(movie.title)
             return (
-                <div>
-                    <li key={movie.imdbid}>
+                <div className="listElementContainer">
+                    <li className="listElement" key={movie.imdbid}>
                         <div>
                             <img src={movie.image} alt={brokenImg}></img>
-                            <p>{movie.title}</p>
-                            <p>{movie.unogsdate}</p>
-                            <p>{(handleCountdown(movie.unogsdate) === 0) ? `No Longer Available` : (handleCountdown(movie.unogsdate) === 1) ? `Last Day to Watch` : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
+                            <p className="listElementMovieTitle">{str}</p>
+                            <p className="listElementMovieEndDate">{movie.unogsdate}</p>
+                            <p className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
                             <p>{}</p>
                         </div>
                     </li>
@@ -55,9 +57,11 @@ export class MovieList extends Component {
 
         })
         return (
-            <div>
-                <h1>This is What's Leaving</h1>
-                <ul>{movieItem}</ul>
+            <div className="listElementBody">
+              <div className="listElementHeader">
+              <h1>This is What's Leaving</h1>
+              </div>
+              <ul className="movieItemList">{movieItem}</ul>
             </div>
         )
     }
