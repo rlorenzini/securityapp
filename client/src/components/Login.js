@@ -3,6 +3,7 @@ import Register from './Register.js';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { setAuthenticationHeader } from './utils/authentication.js'
+import './styling/login.css'
 
 class Login extends Component {
   constructor() {
@@ -46,7 +47,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
+      <div className="loginBody">
         <h1>Login</h1>
         <input onChange={this.handleInputChange} name="username" placeholder="username"></input>
         <input onChange={this.handleInputChange} name="password" placeholder="password"></input>

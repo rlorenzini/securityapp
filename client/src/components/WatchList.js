@@ -48,7 +48,7 @@ export class WatchList extends Component {
         })
 
         return (
-            <div>
+            <div className="userWatchListDiv">
                 <h1>Your WatchList</h1>
                 <ul>{movieItems}</ul>
             </div>

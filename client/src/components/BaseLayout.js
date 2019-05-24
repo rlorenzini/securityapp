@@ -9,7 +9,7 @@ import './styling/BaseLayout.css';
 class BaseLayout extends Component {
   render(){
   return (
-    <div>
+    <div className="baseLayoutBody">
       <Header className="headerOrientation" onLogout={this.props.onLogout} isAuthenticated={this.props.isAuthenticated}
       history={this.props.history}/>
       {this.props.children}

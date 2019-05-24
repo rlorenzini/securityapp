@@ -71,15 +71,13 @@ export class FindAndAdd extends Component {
             )
         })
         return (
-            <div>
+            <div className="omdbDiv">
+                <h1>OMDB movies go here</h1>
                 <div>
-                    <h1>OMDB movies go here</h1>
-                    <div>
-                        <input type="text" onChange={this.handleTextBoxChange} name="title" placeholder="Movie Title"></input>
-                        <button onClick={this.handleFindMovie}>Find Movie</button>
-                    </div>
-                    <ul className="ombd-li">{movieItems}</ul>
+                    <input type="text" onChange={this.handleTextBoxChange} name="title" placeholder="Movie Title"></input>
+                    <button onClick={this.handleFindMovie}>Find Movie</button>
                 </div>
+                <ul className="ombd-li">{movieItems}</ul>
             </div>
         )
     }
