@@ -3,6 +3,7 @@ import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/movieList.css'
+import replaceASCII from './utils/replaceASCII'
 
 
 export class MovieList extends Component {
@@ -38,7 +39,7 @@ export class MovieList extends Component {
         movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
         // MIKES'S CODE ======
         let movieItem = movies.map((movie) => {
-          let str = movie.title.replace("&amp;","&").replace("&gt;",">").replace("&lt;","<").replace("&quot;",'"').replace("&#39;", "'").replace("&rsquo;","'");
+          let str = replaceASCII(movie.title)
             return (
                 <div className="listElementContainer">
                     <li className="listElement" key={movie.imdbid}>
