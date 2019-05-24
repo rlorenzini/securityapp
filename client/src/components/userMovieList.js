@@ -39,7 +39,7 @@ export class MovieList extends Component {
         movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
         // MIKES'S CODE ======
         let movieItem = movies.map((movie) => {
-          let str = replaceASCII(movie.title)
+            let str = replaceASCII(movie.title)
             return (
                 <div className="listElementContainer">
                     <li className="listElement" key={movie.imdbid}>
@@ -58,10 +58,10 @@ export class MovieList extends Component {
         })
         return (
             <div className="listElementBody">
-              <div className="listElementHeader">
-              <h1>This is What's Leaving</h1>
-              </div>
-              <ul className="movieItemList">{movieItem}</ul>
+                <div className="listElementHeader">
+                    <h1>This is What's Leaving</h1>
+                </div>
+                <ul className="movieItemList">{movieItem}</ul>
             </div>
         )
     }
