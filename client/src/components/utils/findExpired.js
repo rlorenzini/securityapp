@@ -16,7 +16,7 @@ export default function findExpired(watchList, expiredList) {
         }
         return {
             title: wLMovie.title,
-            imdbid: wLMovie.id,
+            imdbid: wLMovie.imdbid,
             date: "-"
         }
     })
