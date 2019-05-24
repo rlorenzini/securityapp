@@ -5,7 +5,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import './index.css';
-
+// import rootReducer from './components/stores/store'
 import App from './App';
 import BaseLayout from './components/BaseLayout.js';
 import Login from './components/Login';
@@ -22,10 +22,11 @@ import { setAuthenticationHeader } from './components/utils/authentication';
 
 //<Route path='/profile' component={requireAuth(Profile)}/>
 //<Route path='/exampleMovies' component={exampleMovieList} />
+const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
-const store = createStore(reducer, devToolsEnhancer(
-  // Specify custom devTools options
-));
+// const store = createStore(reducer, devToolsEnhancer(
+//   // Specify custom devTools options
+// ));
 
 setAuthenticationHeader(localStorage.getItem('jsonwebtoken'))
 
