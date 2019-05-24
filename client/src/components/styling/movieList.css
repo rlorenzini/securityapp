@@ -1,3 +1,8 @@
+.listElementBody {
+  background-color: black;
+  color: white;
+}
+
 .movieItemList {
   list-style: none;
   display: flex;
@@ -10,7 +15,14 @@
   width: 200px;
   margin: 5px;
 }
-
+.noLongerAvailable {
+  font-weight: 700;
+  color: #A33327;
+}
+.lastDayToWatch {
+  font-weight: 700;
+  color: #FF652F;
+}
 .listElementHeader {
   display: flex;
   justify-content: center;
@@ -28,4 +40,5 @@
 }
 .listElementMovieCountdown {
   font-weight: 500;
+  color: #689775;
 }

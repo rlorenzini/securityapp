@@ -13,8 +13,8 @@ class Header extends Component {
   render() {
     return (
       <div className="headerMenu">
+      <NavLink exact to='/'><p className="websiteTitle">Last Call</p></NavLink>
         <ul>
-          <li><NavLink exact to='/'>Home</NavLink></li>
           {this.props.isAuthenticated ? <li><NavLink to='/userMovies'>Whats Leaving</NavLink></li> : <li><NavLink to='/exampleMovies'>Whats Leaving</NavLink></li>}
           {this.props.isAuthenticated ? <li><NavLink to="/user-watchList">My Watch List</NavLink></li> : <li><NavLink to='/example-watchList'>Watch List</NavLink></li>}
           {this.props.isAuthenticated ? <li><NavLink to="#" onClick={this.handleLogoutClick}>Logout</NavLink></li> : <li><NavLink to='/login-page'>Login</NavLink></li>}

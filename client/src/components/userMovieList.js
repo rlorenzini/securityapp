@@ -47,7 +47,7 @@ export class MovieList extends Component {
                             <img src={movie.image} alt={brokenImg}></img>
                             <p className="listElementMovieTitle">{str}</p>
                             <p className="listElementMovieEndDate">{movie.unogsdate}</p>
-                            <p className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? `No Longer Available` : (handleCountdown(movie.unogsdate) === 1) ? `Last Day to Watch` : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
+                            <p className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
                             <p>{}</p>
                         </div>
                     </li>
