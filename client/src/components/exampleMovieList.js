@@ -8,14 +8,7 @@ export class ExampleMovieList extends Component {
   constructor(props) {
       super(props)
       this.state = {
-          movies: '',
-          imdbid: '',
-          title: '',
-          expiration: '',
-          synopsis: '',
-          released: 0,
-          imageURL: '',
-          rating: ''
+          movies: ''
       }
   }
   componentDidMount() {
