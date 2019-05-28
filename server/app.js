@@ -23,8 +23,12 @@ const keys = require('./.env.json')
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(favicon(__dirname + '/build/favicon.ico'));
-app.use(express.static(__dirname + "/public"))
+// app.use(express.static(__dirname + "/public"))
+
+// app.get('/', function (req, res) {
+//   const index = path.join(__dirname, 'build', 'index.html');
+//   res.sendFile(index);
+// });
 
 schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
@@ -37,6 +41,10 @@ schedule.scheduleJob('15 9 * * *', function () {
       let data = JSON.stringify(result.body)
       fs.writeFile('./movieData.json', data)
     });
+})
+
+app.get('/expiring', (req, res) => {
+  res.json(MovieData)
 })
 
 function authenticate(req, res, next) {
@@ -114,9 +122,6 @@ app.post('/login', (req, res) => {
   })
 })
 
-app.get('/expiring', (req, res) => {
-  res.json(MovieData)
-})
 app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID

@@ -2,24 +2,20 @@ import React, { Component } from 'react';
 import handleCountdown from './utils/handleCountdown'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
+import movieData from '../movieData.json'
 
 export class ExampleMovieList extends Component {
   constructor(props) {
       super(props)
       this.state = {
-          movies: '',
-          imdbid: '',
-          title: '',
-          expiration: '',
-          synopsis: '',
-          released: 0,
-          imageURL: '',
-          rating: ''
+          movies: ''
       }
   }
   componentDidMount() {
       let url = "http://localhost:8080/expiring"
-      fetch(url)
+      fetch(url, {headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }})
           .then(response => response.json())
           .then(json => {
               this.setState({
