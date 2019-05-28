@@ -28,18 +28,9 @@ class WatchList extends Component {
             })
         }).then(response => response.json())
             .then(json => {
-                // ======TESTING =======
                 let datified = findExpired(json, movieData)
                 this.props.onUpdate(datified)
-                // console.log(json)
-                //====== TESTING END ======
-                // console.log(json)
-                // this.setState({
-                //     watchList: json
-                // })
             })
-        // console.log(this.props.WatchList)
-
     }
 
     removeMovie = (e) => {
