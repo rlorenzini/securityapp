@@ -1,5 +1,3 @@
-import { UserWatchList } from "../UserWatchList";
-
 export default function findExpired(watchList, expiredList) {
     console.log(watchList)
     console.log(expiredList.ITEMS[0].imdbid)
