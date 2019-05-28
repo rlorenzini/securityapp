@@ -31,8 +31,8 @@ export class ExampleMovieList extends Component {
           })
   }
   render() {
-      let movies = []
-      movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
+      // let movies = []
+      let movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
       let movieItem = movies.map((movie) => {
         let str = replaceASCII(movie.title)
           return (
