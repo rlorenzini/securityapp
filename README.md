@@ -19,12 +19,18 @@ With our application, users can create a watch list which is then compared to Ne
 # How It Works 
 
 **Login** 
-<img src="images/mobileLogin.png"/> 
+ 
+<img height="600px" src="images/mobileLogin.png"/> 
 
 Our login page allows new users to register and login on one page. 
 
 **Watch List** 
 
-Once logged in, users can add movies to their personal watch list.
+Once logged in, users can add movies to their personal watch list. When checked against the current content list, users will be notified if the movie or show is available or not.
 
 <img src="images/deskWatch.png"/>
+
+
+Users can check the full list at any point, to see what will be leaving soon.
+
+<img src="images/deskLeaving.png"/>
