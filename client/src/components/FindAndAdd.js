@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import * as keys from '../.env.json';
 import movieData from '../movieData.json'
-import handleCountdown from './utils/handleCountdown'
-import brokenImg from '../images/clock.png'
 import './styling/UserWatchList.css'
 import { connect } from 'react-redux'
 import findExpired from './utils/findExpired'
@@ -74,7 +71,7 @@ class FindAndAdd extends Component {
         let movieItems = omdbList.map((movie) => {
             return (
                 <li key={movie.imdbID}>
-                    <img className="omdb-poster" src={movie.Poster}></img>
+                    <img className="omdb-poster" alt={movie.Poster} src={movie.Poster}></img>
                     <p>{movie.Title}</p>
                     <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
                 </li>
@@ -100,4 +97,4 @@ const mapDispatchToProps = (dispatch) => {
         })
     }
 }
-export default connect(null, mapDispatchToProps)(FindAndAdd) 
+export default connect(null, mapDispatchToProps)(FindAndAdd)
