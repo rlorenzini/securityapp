@@ -17,7 +17,6 @@ export class MovieList extends Component {
         fetch(url)
             .then(response => response.json())
             .then(json => {
-                // console.log(json)
                 this.setState({
                     ...this.state.movies,
                     movies: json
