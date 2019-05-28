@@ -24,6 +24,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(favicon(__dirname + '/build/favicon.ico'));
+app.use(express.static(__dirname + "/public"))
 
 schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
