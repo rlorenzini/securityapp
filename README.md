@@ -26,3 +26,5 @@ Our login page allows new users to register and login on one page.
 **Watch List** 
 
 Once logged in, users can add movies to their personal watch list.
+
+<img src="images/deskWatch.png"/>
