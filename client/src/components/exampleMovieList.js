@@ -13,7 +13,9 @@ export class ExampleMovieList extends Component {
   }
   componentDidMount() {
       let url = "http://localhost:8080/expiring"
-      fetch(url)
+      fetch(url, {headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }})
           .then(response => response.json())
           .then(json => {
               this.setState({
