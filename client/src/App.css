@@ -1,3 +1,17 @@
+.homePage {
+  color:white;
+  margin: 0 13% 0 13%;
+
+}
+.homePageTitle {
+  font-weight: 900;
+  font-size: 32px;
+}
+.homePageAlignment {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .App {
   text-align: center;
 }

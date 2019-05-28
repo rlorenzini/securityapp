@@ -1,0 +1,67 @@
+.lists-container {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.userWatchListBody {
+  background-color: black;
+  color: white;
+}
+
+.watchlist{
+    width:  50%;
+    text-align: center;
+    border: 2px solid grey;
+}
+
+.userWatchListDiv li {
+  list-style: none;
+  color: #689775;
+}
+
+.omdbDiv input {
+  background-color: #333333;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 8px;
+}
+
+.omdbDiv button {
+  border-color: black;
+  color: white;
+  background-color: #E50A13;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 8px;
+}
+
+.omdb-list {
+    width:  50%;
+    text-align: center;
+    border: 2px solid grey;
+}
+.ombd-li {
+    list-style: none;
+}
+
+.omdb-poster {
+    width: 60px;
+}
+
+.exampleWatchList {
+  color: white;
+}
+.listElementMovieTitle {
+ color: white;
+}
