@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import handleCountdown from './utils/handleCountdown'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
+import movieData from '../movieData.json'
 
 export class ExampleMovieList extends Component {
   constructor(props) {
