@@ -21,7 +21,7 @@ class Header extends Component {
             <p className="websiteTitle">Menu</p><i className="fa fa-caret-down"></i></button>
                 <div className="dropdown-content">
                   {this.props.isAuthenticated ? <NavLink to='/userMovies'>Whats Leaving</NavLink> : <NavLink to='/exampleMovies'>Whats Leaving</NavLink>}
-                  {this.props.isAuthenticated ? <NavLink to="/user-watchList">My Watch List</NavLink> : <NavLink to='/example-watchList'>Watch List</NavLink>}
+                  {this.props.isAuthenticated ? <NavLink to="/user-watchList">My Watch List</NavLink> : null}
                   {this.props.isAuthenticated ? <NavLink to="#" onClick={this.handleLogoutClick}>Logout</NavLink> : <NavLink to='/login-page'>Login</NavLink>}
 
                 </div>

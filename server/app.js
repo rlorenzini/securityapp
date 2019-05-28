@@ -24,12 +24,6 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(favicon(__dirname + '/build/favicon.ico'));
-// the __dirname is the current directory from where the script is running
-// app.use(express.static(__dirname));
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
 
 schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
@@ -106,14 +100,11 @@ app.post('/login', (req, res) => {
     }
   }).then((user) => {
 
-    // let user = users.find((u)=>{
-    //   return u.username == username && u.password == password
-    // })
     if (user) {
       jwt.sign({ username: username }, 'secret',
         function (err, token) {
           if (token) {
-            res.json({ username: username, token: token, id: user.id }) //Mike added user.id to response
+            res.json({ username: username, token: token, id: user.id })
           } else {
             res.status(500).json({ message: 'unable to generate token' })
           }
