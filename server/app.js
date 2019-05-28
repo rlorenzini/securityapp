@@ -23,12 +23,12 @@ const keys = require('./.env.json')
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(__dirname + "/public"))
+// app.use(express.static(__dirname + "/public"))
 
-app.get('*', function (req, res) {
-  const index = path.join(__dirname, 'build', 'index.html');
-  res.sendFile(index);
-});
+// app.get('/', function (req, res) {
+//   const index = path.join(__dirname, 'build', 'index.html');
+//   res.sendFile(index);
+// });
 
 schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
