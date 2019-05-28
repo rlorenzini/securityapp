@@ -63,8 +63,8 @@ class FindAndAdd extends Component {
                 //     type: 'UPDATE',
                 //     value: json
                 // })
-                let datified = findExpired(json, movieData)
-                this.props.onUpdate(datified)
+                // let datified = findExpired(json, movieData)
+                this.props.onUpdate(json)
             })
 
     }

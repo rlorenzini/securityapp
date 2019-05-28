@@ -34,8 +34,8 @@ class WatchList extends Component {
         }).then(response => response.json())
             .then(json => {
                 // ======TESTING =======
-                let datified = findExpired(json, movieData)
-                this.props.onUpdate(datified)
+                // let datified = findExpired(json, movieData)
+                this.props.onUpdate(json)
                 // console.log(json)
                 //====== TESTING END ======
                 // console.log(json)
@@ -60,14 +60,14 @@ class WatchList extends Component {
             })
         }).then((response) => response.json())
             .then(json => {
-                let datified = findExpired(json, movieData)
-                this.props.onUpdate(datified)
+                // let datified = findExpired(json, movieData)
+                this.props.onUpdate(json)
             })
     }
     render() {
         let userList = this.props.watchList
-        // let datified = findExpired(userList, movieData)
-        let movieItems = userList.map((movie) => {
+        let datified = findExpired(userList, movieData)
+        let movieItems = datified.map((movie) => {
             return (
                 <li key={movie.imdbid}>
                     <p className="listElementMovieTitle">{movie.title}</p>
