@@ -16,7 +16,6 @@ class WatchList extends Component {
         }
     }
     componentDidMount() {
-        console.log(this.state.userid)
         let url = "http://localhost:8080/user-watch-list"
         fetch(url, {
             method: "POST",
@@ -34,7 +33,6 @@ class WatchList extends Component {
     }
 
     removeMovie = (e) => {
-        console.log(e.target.id)
         fetch('http://localhost:8080/delete-movie', {
             method: 'POST',
             headers: {

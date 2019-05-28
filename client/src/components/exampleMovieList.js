@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
@@ -8,7 +7,7 @@ export class ExampleMovieList extends Component {
   constructor(props) {
       super(props)
       this.state = {
-          movies: movieData,
+          movies: '',
           imdbid: '',
           title: '',
           expiration: '',
@@ -23,7 +22,6 @@ export class ExampleMovieList extends Component {
       fetch(url)
           .then(response => response.json())
           .then(json => {
-              // console.log(json)
               this.setState({
                   ...this.state.movies,
                   movies: json
@@ -43,8 +41,7 @@ export class ExampleMovieList extends Component {
                           <img src={movie.image} alt={movie.image}></img>
                           <p className="listElementMovieTitle">{str}</p>
                           <p className="listElementMovieEndDate">{movie.unogsdate}</p>
-                          <p className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
-                          <p>{}</p>
+                          <span className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</span>
                       </div>
                   </li>
               </div>

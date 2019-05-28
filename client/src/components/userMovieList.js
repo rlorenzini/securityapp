@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
@@ -9,7 +8,7 @@ export class MovieList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            movies: movieData
+            movies: ''
         }
     }
     componentDidMount() {
