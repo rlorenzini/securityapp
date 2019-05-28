@@ -52,7 +52,6 @@ class WatchList extends Component {
     }
     render() {
         let userList = this.props.watchList
-        // let datified = findExpired(userList, movieData)
         let movieItems = userList.map((movie) => {
             return (
                 <li key={movie.imdbid}>

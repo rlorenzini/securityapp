@@ -10,7 +10,6 @@ import Login from './components/Login';
 import { MovieList } from './components/userMovieList';
 import { ExampleMovieList } from './components/exampleMovieList';
 import { UserWatchList } from './components/UserWatchList';
-import { ExampleWatchList } from './components/ExampleWatchList'
 
 import * as serviceWorker from './serviceWorker';
 import reducer from './components/stores/reducers/reducer';
@@ -29,7 +28,6 @@ ReactDOM.render(
           <Route path='/userMovies' component={MovieList} />
           <Route path='/exampleMovies' component={ExampleMovieList} />
           <Route path='/user-watchList' component={UserWatchList} />
-          <Route path='/example-watchList' component={ExampleWatchList} />
           <Route path='/login-page' component={Login} />
         </Switch>
       </BaseLayout>

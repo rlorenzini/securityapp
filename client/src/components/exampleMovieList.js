@@ -4,8 +4,6 @@ import handleCountdown from './utils/handleCountdown'
 import brokenImg from '../images/clock.png'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
-// import { Link } from 'react-router-dom';
-// import { RICHARD_UNOGS_KEY, MIKE_UNOGS_KEY } from '../.env.json';
 
 export class ExampleMovieList extends Component {
   constructor(props) {
@@ -35,10 +33,8 @@ export class ExampleMovieList extends Component {
           })
   }
   render() {
-      // MIKES'S CODE =======
       let movies = []
       movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
-      // MIKES'S CODE ======
       let movieItem = movies.map((movie) => {
         let str = replaceASCII(movie.title)
           return (
