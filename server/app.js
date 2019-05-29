@@ -20,27 +20,17 @@ const express = require('express'),
 
 const keys = require('./.env.json')
 const nodemailer = require('nodemailer');
-// const transporter = nodemailer.createTransport({
-//   host: 'smtp.ethereal.email',
-//   port: 587,
-//   auth: {
-//     user: 'ruby.mcglynn48@ethereal.email',
-//     pass: 'TtaFjpUTeD8SRvzdUC'
-//   }
-// });
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   port: 587,
   auth: {
     user: 'no.reply.last.call7@gmail.com',
-    pass: '783LcCl65'
+    pass: keys.EMAIL_PASSWORD
   }
 });
 
 
 
-// const servFindExp = require('./servFindExp')
-// import servFindExp from './servFindExp'
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -125,7 +115,7 @@ schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
     .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
-    .header("X-RapidAPI-Key", `${keys.MIKE_UNOGS_KEY} `)
+    .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY} `)
     .end(function (result) {
       console.log(result.status, result.headers);
       let data = JSON.stringify(result.body)
