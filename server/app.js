@@ -66,7 +66,7 @@ function emailUsers() {
             let mailer = []
             userExp.forEach((movie) => {
               let count = getDays(movie.date)
-              if (count <= 7 && count > 0) {
+              if (count === 30 && count > 0) {
                 let movieItem = {
                   title: movie.title,
                   date: movie.date,
@@ -74,6 +74,24 @@ function emailUsers() {
                 }
                 mailer.push(movieItem)
               }
+              if (count === 14 && count > 0) {
+                let movieItem = {
+                  title: movie.title,
+                  date: movie.date,
+                  counter: getDays(movie.date)
+                }
+                mailer.push(movieItem)
+              }
+              if (count === 2 && count > 0) {
+                let movieItem = {
+                  title: movie.title,
+                  date: movie.date,
+                  counter: getDays(movie.date)
+                }
+                mailer.push(movieItem)
+              }
+
+
             })
             console.log(mailer)
             if (mailer.length != 0) {
@@ -83,8 +101,8 @@ function emailUsers() {
                   `
               })
               let mailOptions = {
-                from: 'miglas9@yahoo.com',
-                to: 'miglas9@yahoo.com',
+                from: 'no.reply.last.call7@gmail.com',
+                to: userEmail,
                 subject: 'Movies on your Watch List are going away!',
                 html: text.join('')
               };
@@ -107,7 +125,7 @@ schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
     .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
-    .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY} `)
+    .header("X-RapidAPI-Key", `${keys.MIKE_UNOGS_KEY} `)
     .end(function (result) {
       console.log(result.status, result.headers);
       let data = JSON.stringify(result.body)
@@ -117,11 +135,6 @@ schedule.scheduleJob('15 9 * * *', function () {
 schedule.scheduleJob('16 9 * * *', function () {
   emailUsers()
 })
-
-app.get('/expiring', (req, res) => {
-  res.json(MovieData)
-})
-
 function authenticate(req, res, next) {
   let headers = req.headers["authorization"]
 
@@ -139,7 +152,9 @@ function authenticate(req, res, next) {
     }
   })
 }
-
+app.get('/expiring', (req, res) => {
+  res.json(MovieData)
+})
 app.get('/username', authenticate, (req, res) => {
   res.send(currentUser[currentUser.length - 1])
 })
@@ -300,28 +315,3 @@ function getDays(exp) {
 }
 
 
-// const transporter = nodemailer.createTransport({
-//   host: 'smtp.ethereal.email',
-//   port: 587,
-//   auth: {
-//     user: 'ruby.mcglynn48@ethereal.email',
-//     pass: 'TtaFjpUTeD8SRvzdUC'
-//   }
-// });
-
-// let mailOptions = {
-//   from: 'ruby.mcglynn48@ethereal.email',
-//   to: 'miglas9@yahoo.com',
-//   subject: 'Sending Email using Node.js',
-//   text: 'That was easy!'
-// };
-
-// transporter.sendMail(mailOptions, function (error, info) {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
-
-// "<h3>" + `${mailer[0].title} will be leaving Netflix on ${mailer[0].date} in ${mailer[0].counter} days` + "</h3>"
