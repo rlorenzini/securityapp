@@ -59,7 +59,6 @@ function emailUsers() {
         models.WatchList.findAll({
           where: {
             userid: userid
-            //check user opt in for emails notifications here?
           }
         })
           .then((userMovies) => {
@@ -129,7 +128,6 @@ schedule.scheduleJob('15 9 * * *', function () {
     .header("X-RapidAPI-Key", `${keys.MIKE_UNOGS_KEY} `)
     .end(function (result) {
       console.log(result.status, result.headers);
-      //console.log(result.body) to see all data
       let data = JSON.stringify(result.body)
       fs.writeFile('./movieData.json', data)
     });
