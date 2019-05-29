@@ -31,7 +31,8 @@ class Login extends Component {
 
         setAuthenticationHeader(token)
       })
-      .catch(error => console.log(error))
+      .catch(error => console.log(error.message).then(
+    alert("Login credentials were incorrect. Please try again.")))
   )
 
   handleInputChange = (e) => (
