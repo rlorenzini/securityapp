@@ -36,8 +36,7 @@ class Register extends Component {
       this.props.onAuthenticated(token)
       setAuthenticationHeader(token)
     })
-    .catch(error=>console.log(error.message)
-    .then(alert("Username, password, or email is incorrect! Username must be 6-20 characters. Password must be 6-20 characters with one uppercase and lowercase letter and at least one number. Must use a valid email.")))
+    .catch(error=>alert("Username, password, or email is incorrect! Username must be 6-20 characters. Password must be 6-20 characters with one uppercase and lowercase letter and at least one number. Must use a valid email."))
   )
 
   render(){
