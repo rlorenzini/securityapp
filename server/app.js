@@ -19,7 +19,28 @@ const express = require('express'),
   PORT = process.env.PORT || 8080;
 
 const keys = require('./.env.json')
+const nodemailer = require('nodemailer');
+// const transporter = nodemailer.createTransport({
+//   host: 'smtp.ethereal.email',
+//   port: 587,
+//   auth: {
+//     user: 'ruby.mcglynn48@ethereal.email',
+//     pass: 'TtaFjpUTeD8SRvzdUC'
+//   }
+// });
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  port: 587,
+  auth: {
+    user: 'no.reply.last.call7@gmail.com',
+    pass: '783LcCl65'
+  }
+});
 
+
+
+// const servFindExp = require('./servFindExp')
+// import servFindExp from './servFindExp'
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -29,18 +50,72 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //   const index = path.join(__dirname, 'build', 'index.html');
 //   res.sendFile(index);
 // });
+function emailUsers() {
+  models.User.findAll()
+    .then((allUsers) => {
+      allUsers.forEach(user => {
+        let userid = user.dataValues.id
+        let userEmail = user.dataValues.email
+        models.WatchList.findAll({
+          where: {
+            userid: userid
+          }
+        })
+          .then((userMovies) => {
+            let userExp = servFindExp(userMovies, MovieData)
+            let mailer = []
+            userExp.forEach((movie) => {
+              let count = getDays(movie.date)
+              if (count <= 7 && count > 0) {
+                let movieItem = {
+                  title: movie.title,
+                  date: movie.date,
+                  counter: getDays(movie.date)
+                }
+                mailer.push(movieItem)
+              }
+            })
+            console.log(mailer)
+            if (mailer.length != 0) {
+              let text = mailer.map((movie) => {
+                return `
+                          <h3>${movie.title} will be leaving Netflix on ${movie.date} in ${movie.counter} days</h3>
+                  `
+              })
+              let mailOptions = {
+                from: 'miglas9@yahoo.com',
+                to: 'miglas9@yahoo.com',
+                subject: 'Movies on your Watch List are going away!',
+                html: text.join('')
+              };
+
+              transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                }
+              });
+            }
+          })
+      })
+    })
+
+}
 
 schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
     .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
-    .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY}`)
+    .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY} `)
     .end(function (result) {
       console.log(result.status, result.headers);
-      //console.log(result.body) to see all data
       let data = JSON.stringify(result.body)
       fs.writeFile('./movieData.json', data)
     });
+})
+schedule.scheduleJob('16 9 * * *', function () {
+  emailUsers()
 })
 
 app.get('/expiring', (req, res) => {
@@ -187,5 +262,66 @@ app.use(function (req, res, next) {
 
 
 app.listen(PORT, () => {
-  console.log(`Server running at localhost:${PORT}`);
+  console.log(`Server running at localhost: ${PORT} `);
 });
+
+
+function servFindExp(watchList, expiredList) {
+  // console.log('[Expired List 226]' + expiredList.ITEMS[0].imdbid)
+  let result = watchList.map((wLMovie) => {
+    // console.log('[Watch List 228]' + wLMovie.dataValues.imbdid)
+    for (let i = 0; i < expiredList.ITEMS.length; i++) {
+      if (wLMovie.dataValues.imdbid === expiredList.ITEMS[i].imdbid) {
+        return {
+          title: wLMovie.dataValues.title,
+          imdbid: wLMovie.dataValues.imdbid,
+          date: expiredList.ITEMS[i].unogsdate
+        }
+      }
+    }
+    return {
+      title: wLMovie.dataValues.title,
+      imdbid: wLMovie.dataValues.imdbid,
+      date: "-"
+    }
+  })
+  // console.log(result)
+  return result
+}
+
+function getDays(exp) {
+  if (exp === "-") {
+    return "Available"
+  }
+  let today = new Date()
+  let one_day = 1000 * 60 * 60 * 24
+  let goneDate = new Date(exp)
+  return Math.ceil((goneDate - today.getTime()) / one_day)
+}
+
+
+// const transporter = nodemailer.createTransport({
+//   host: 'smtp.ethereal.email',
+//   port: 587,
+//   auth: {
+//     user: 'ruby.mcglynn48@ethereal.email',
+//     pass: 'TtaFjpUTeD8SRvzdUC'
+//   }
+// });
+
+// let mailOptions = {
+//   from: 'ruby.mcglynn48@ethereal.email',
+//   to: 'miglas9@yahoo.com',
+//   subject: 'Sending Email using Node.js',
+//   text: 'That was easy!'
+// };
+
+// transporter.sendMail(mailOptions, function (error, info) {
+//   if (error) {
+//     console.log(error);
+//   } else {
+//     console.log('Email sent: ' + info.response);
+//   }
+// });
+
+// "<h3>" + `${mailer[0].title} will be leaving Netflix on ${mailer[0].date} in ${mailer[0].counter} days` + "</h3>"
