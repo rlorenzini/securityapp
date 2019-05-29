@@ -20,27 +20,17 @@ const express = require('express'),
 
 const keys = require('./.env.json')
 const nodemailer = require('nodemailer');
-// const transporter = nodemailer.createTransport({
-//   host: 'smtp.ethereal.email',
-//   port: 587,
-//   auth: {
-//     user: 'ruby.mcglynn48@ethereal.email',
-//     pass: 'TtaFjpUTeD8SRvzdUC'
-//   }
-// });
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   port: 587,
   auth: {
     user: 'no.reply.last.call7@gmail.com',
-    pass: '783LcCl65'
+    pass: keys.EMAIL_PASSWORD
   }
 });
 
 
 
-// const servFindExp = require('./servFindExp')
-// import servFindExp from './servFindExp'
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
