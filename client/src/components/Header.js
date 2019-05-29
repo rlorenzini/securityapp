@@ -13,19 +13,20 @@ class Header extends Component {
   render() {
     return (
       <div className="headerMenu">
-      <NavLink to='/'>
-        <p className="websiteTitle">Last Call</p>
+        <NavLink to='/'>
+          <p className="websiteTitle">Last Call</p>
         </NavLink>
-          <div className="dropdown">
-            <button className="dropbtn">
+        <div className="dropdown">
+          <button className="dropbtn">
             <p className="websiteTitle">Menu</p><i className="fa fa-caret-down"></i></button>
-                <div className="dropdown-content">
-                  {this.props.isAuthenticated ? <NavLink to='/userMovies'>Whats Leaving</NavLink> : <NavLink to='/exampleMovies'>Whats Leaving</NavLink>}
-                  {this.props.isAuthenticated ? <NavLink to="/user-watchList">My Watch List</NavLink> : null}
-                  {this.props.isAuthenticated ? <NavLink to="#" onClick={this.handleLogoutClick}>Logout</NavLink> : <NavLink to='/login-page'>Login</NavLink>}
+          <div className="dropdown-content">
+            {this.props.isAuthenticated ? <NavLink to='/userMovies'>Whats Leaving</NavLink> : <NavLink to='/exampleMovies'>Whats Leaving</NavLink>}
+            {this.props.isAuthenticated ? <NavLink to='/newArrivals'>New Arrivals</NavLink> : <NavLink to='/newArrivals'>New Arrivals</NavLink>}
+            {this.props.isAuthenticated ? <NavLink to="/user-watchList">My Watch List</NavLink> : null}
+            {this.props.isAuthenticated ? <NavLink to="#" onClick={this.handleLogoutClick}>Logout</NavLink> : <NavLink to='/login-page'>Login</NavLink>}
 
-                </div>
           </div>
+        </div>
 
       </div>
     )

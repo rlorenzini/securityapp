@@ -63,7 +63,7 @@ class WatchList extends Component {
 
         return (
             <div className="userWatchListDiv">
-                <h1>Your WatchList</h1>
+                {(this.props.username === '') ? <h2>User WatchList</h2> : <h2>{this.props.username}'s WatchList</h2>}
                 <ul>{movieItems}</ul>
             </div >
         )
@@ -71,7 +71,8 @@ class WatchList extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        watchList: state.watchList
+        watchList: state.watchList,
+        username: state.username
     }
 }
 const mapDispatchToProps = (dispatch) => {

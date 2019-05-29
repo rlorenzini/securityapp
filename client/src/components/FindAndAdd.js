@@ -68,7 +68,7 @@ class FindAndAdd extends Component {
         })
         return (
             <div className="omdbDiv">
-                <h1>OMDB movies go here</h1>
+                <h2>Add a Movie</h2>
                 <div>
                     <input type="text" onChange={this.handleTextBoxChange} name="title" placeholder="Movie Title"></input>
                     <button onClick={this.handleFindMovie}>Find Movie</button>
