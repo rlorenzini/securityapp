@@ -155,34 +155,49 @@ app.post('/register', (req, res) => {
   let firstName = req.body.firstName
   let lastName = req.body.lastName
   let email = req.body.email
-  models.User.findOne({
-    where: {
-      username: username
-    }
-  }).then((user) => {
-    if (user) {
-      res.render('register', { message: "User name already exists!" })
-    } else {
-      bcrypt.hash(password, SALT_ROUNDS, function (error, hash) {
-        if (error == null) {
-          let user = models.User.build({
-            username: username,
-            password: hash,
-            firstName: firstName,
-            lastName: lastName,
-            email: email
-          })
-          user.save()
-        }
-      })
-    }
-  })
+
+  let emailRegEx = RegExp('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')
+  //standard email format
+  let userRegEx = RegExp('([a-zA-Z0-9]{6,20})$')
+  //username can contain a-z, A-Z, and 0-9, and has to be between
+  //six and twenty digits
+  let pwdRegEx = RegExp('(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,20})$')
+  //password CANNOT start with a number
+  //password CANNOT be just letters
+  //password must contain one lowercase letter, one uppercase letter, one number,
+  //and must be between eight to twenty digits long
+  if (userRegEx.test(username) === true && pwdRegEx.test(password) === true && emailRegEx.test(email) === true) {
+    models.User.findOne({
+      where: {
+        username: username
+      }
+    }).then((user) => {
+      if (user) {
+        res.render('register', { message: "User name already exists!" })
+      } else {
+        bcrypt.hash(password, SALT_ROUNDS, function (error, hash) {
+          if (error == null) {
+            let user = models.User.build({
+              username: username,
+              password: hash,
+              firstName: firstName,
+              lastName: lastName,
+              email: email
+            })
+            user.save()
+          }
+        })
+      }
+    })
+  } else {
+    let message = "Username, password, or email is incorrect! Username must be 6-20 characters. Password must be 6-20 characters with one uppercase and lowercase letter and at least one number."
+    res.status(500).json({ message: message })
+  }
 })
 
 app.post('/login', (req, res) => {
   let username = req.body.username
   let password = req.body.password
-  console.log(username, password)
   models.User.findOne({
     where: {
       username: username
@@ -190,16 +205,29 @@ app.post('/login', (req, res) => {
   }).then((user) => {
 
     if (user) {
-      jwt.sign({ username: username }, 'secret',
-        function (err, token) {
-          if (token) {
-            res.json({ username: username, token: token, id: user.id })
-          } else {
-            res.status(500).json({ message: 'unable to generate token' })
-          }
-        })
+      bcrypt.compare(password,user.password,(error,result)=>{
+        if(result){
+          jwt.sign({ username: username }, 'secret',
+            function (error, token) {
+              if (token) {
+                res.json({ username: username, token: token, id: user.id, status: 200 })
+              } else {
+                res.status(500).json({ message: 'unable to generate token', status: 500 })
+              }
+            })
+        }
+        else {
+          let message = "wrong username and password"
+          res.status(500).json({message:message, status: 500})
+          console.log("wrong username and password")
+        }
+      })
     }
   })
+  // .catch(()=>{
+  //   let message = "wrong username and password"
+  //   res.status(500).json({message:message})
+  // })
 })
 
 app.post('/add-movie', (req, res) => {
@@ -303,5 +331,3 @@ function getDays(exp) {
   let goneDate = new Date(exp)
   return Math.ceil((goneDate - today.getTime()) / one_day)
 }
-
-

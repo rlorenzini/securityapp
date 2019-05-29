@@ -15,23 +15,35 @@ class Login extends Component {
   }
 
   handleSubmitLogin = () => (
-    axios.post('http://localhost:8080/login', {
+    fetch('http://localhost:8080/login', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
       username: this.state.username,
       password: this.state.password,
     })
-      .then(response => {
-        let token = response.data.token
-        let username = response.data.username
-        let userid = response.data.id
+  })
+      .then(response =>
+        response.json()).then(json=>{
+          if (json.status === 200) {
+          console.log(json)
+          let token = json.token
+          let username = json.username
+          let userid = json.id
+          localStorage.setItem('userid', userid)
+          localStorage.setItem('jsonwebtoken', token)
+          this.props.onAuthenticated(username, token)
+          this.props.history.push('/')
 
-        localStorage.setItem('userid', userid)
-        localStorage.setItem('jsonwebtoken', token)
-        this.props.onAuthenticated(username, token)
-        this.props.history.push('/')
-
-        setAuthenticationHeader(token)
+          setAuthenticationHeader(token)
+        } else if (json.status === 500) {
+          alert(json.message)
+        }
+      }).catch((error)=>{
+        console.log(error)
       })
-      .catch(error => console.log(error))
   )
 
   handleInputChange = (e) => (
