@@ -54,7 +54,7 @@ class WatchList extends Component {
             return (
                 <li key={movie.imdbid}>
                     <p className="listElementMovieTitle">{movie.title}</p>
-                    <span className="listElementMovieCountdown">{(handleCountdown(movie.date) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.date) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : (handleCountdown(movie.date) === 'Available') ? <p>Available</p> : `${handleCountdown(movie.date)} days remaining`}
+                    <span className="listElementMovieCountdown">{(handleCountdown(movie.date) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.date) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : (handleCountdown(movie.date) === 'Available') ? <p>Available</p> : <p>{handleCountdown(movie.date)} days remaining</p>}
                     </span>
                     <button onClick={this.removeMovie} id={movie.imdbid}>Remove</button>
                 </li >
