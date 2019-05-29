@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
-import movieData from '../movieData.json'
 import handleCountdown from './utils/handleCountdown'
-import brokenImg from '../images/clock.png'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
+import movieData from '../movieData.json'
 
 
 export class MovieList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            movies: movieData,
-            imdbid: '',
-            title: '',
-            expiration: '',
-            synopsis: '',
-            released: 0,
-            imageURL: '',
-            rating: ''
+            movies: ''
         }
     }
     componentDidMount() {
@@ -25,7 +17,6 @@ export class MovieList extends Component {
         fetch(url)
             .then(response => response.json())
             .then(json => {
-                // console.log(json)
                 this.setState({
                     ...this.state.movies,
                     movies: json
@@ -34,21 +25,18 @@ export class MovieList extends Component {
             })
     }
     render() {
-        // MIKES'S CODE =======
         let movies = []
         movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
-        // MIKES'S CODE ======
         let movieItem = movies.map((movie) => {
             let str = replaceASCII(movie.title)
             return (
                 <div className="listElementContainer">
                     <li className="listElement" key={movie.imdbid}>
                         <div>
-                            <img src={movie.image} alt={brokenImg}></img>
+                            <img src={movie.image} alt={movie.image}></img>
                             <p className="listElementMovieTitle">{str}</p>
                             <p className="listElementMovieEndDate">{movie.unogsdate}</p>
-                            <p className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</p>
-                            <p>{}</p>
+                            <span className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</span>
                         </div>
                     </li>
                 </div>

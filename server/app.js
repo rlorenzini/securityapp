@@ -44,12 +44,11 @@ const transporter = nodemailer.createTransport({
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(favicon(__dirname + '/build/favicon.ico'));
-// the __dirname is the current directory from where the script is running
-// app.use(express.static(__dirname));
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// app.use(express.static(__dirname + "/public"))
+
+// app.get('/', function (req, res) {
+//   const index = path.join(__dirname, 'build', 'index.html');
+//   res.sendFile(index);
 // });
 function emailUsers() {
   models.User.findAll()
@@ -68,7 +67,7 @@ function emailUsers() {
             let mailer = []
             userExp.forEach((movie) => {
               let count = getDays(movie.date)
-              if (count <= 7 && count > 0) {
+              if (count === 30 && count > 0) {
                 let movieItem = {
                   title: movie.title,
                   date: movie.date,
@@ -76,6 +75,24 @@ function emailUsers() {
                 }
                 mailer.push(movieItem)
               }
+              if (count === 14 && count > 0) {
+                let movieItem = {
+                  title: movie.title,
+                  date: movie.date,
+                  counter: getDays(movie.date)
+                }
+                mailer.push(movieItem)
+              }
+              if (count === 2 && count > 0) {
+                let movieItem = {
+                  title: movie.title,
+                  date: movie.date,
+                  counter: getDays(movie.date)
+                }
+                mailer.push(movieItem)
+              }
+
+
             })
             console.log(mailer)
             if (mailer.length != 0) {
@@ -84,15 +101,9 @@ function emailUsers() {
                           <h3>${movie.title} will be leaving Netflix on ${movie.date} in ${movie.counter} days</h3>
                   `
               })
-              // let mailOptions = {
-              //   from: 'ruby.mcglynn48@ethereal.email',
-              //   to: 'ruby.mcglynn48@ethereal.email',
-              //   subject: 'Movies on your Watch List are going away!',
-              //   html: text.join('')
-              // };
               let mailOptions = {
-                from: 'miglas9@yahoo.com',
-                to: 'miglas9@yahoo.com',
+                from: 'no.reply.last.call7@gmail.com',
+                to: userEmail,
                 subject: 'Movies on your Watch List are going away!',
                 html: text.join('')
               };
@@ -115,7 +126,7 @@ schedule.scheduleJob('15 9 * * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:exp:US&t=ns&st=adv&p=1")
     .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
-    .header("X-RapidAPI-Key", `${keys.RICHARD_UNOGS_KEY} `)
+    .header("X-RapidAPI-Key", `${keys.MIKE_UNOGS_KEY} `)
     .end(function (result) {
       console.log(result.status, result.headers);
       //console.log(result.body) to see all data
@@ -123,17 +134,9 @@ schedule.scheduleJob('15 9 * * *', function () {
       fs.writeFile('./movieData.json', data)
     });
 })
-schedule.scheduleJob('15 9 * * *', function () {
+schedule.scheduleJob('16 9 * * *', function () {
   emailUsers()
 })
-// emailUsers()
-// schedule.scheduleJob('16 9 * * *', function () {
-//   models.User.findAll()
-//     .then((allUsers) => {
-//       console.log(allUsers)
-//     })
-//   emailer()
-// })
 function authenticate(req, res, next) {
   let headers = req.headers["authorization"]
 
@@ -151,7 +154,9 @@ function authenticate(req, res, next) {
     }
   })
 }
-
+app.get('/expiring', (req, res) => {
+  res.json(MovieData)
+})
 app.get('/username', authenticate, (req, res) => {
   res.send(currentUser[currentUser.length - 1])
 })
@@ -196,14 +201,11 @@ app.post('/login', (req, res) => {
     }
   }).then((user) => {
 
-    // let user = users.find((u)=>{
-    //   return u.username == username && u.password == password
-    // })
     if (user) {
       jwt.sign({ username: username }, 'secret',
         function (err, token) {
           if (token) {
-            res.json({ username: username, token: token, id: user.id }) //Mike added user.id to response
+            res.json({ username: username, token: token, id: user.id })
           } else {
             res.status(500).json({ message: 'unable to generate token' })
           }
@@ -212,9 +214,6 @@ app.post('/login', (req, res) => {
   })
 })
 
-app.get('/expiring', (req, res) => {
-  res.json(MovieData)
-})
 app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID
@@ -318,28 +317,3 @@ function getDays(exp) {
 }
 
 
-// const transporter = nodemailer.createTransport({
-//   host: 'smtp.ethereal.email',
-//   port: 587,
-//   auth: {
-//     user: 'ruby.mcglynn48@ethereal.email',
-//     pass: 'TtaFjpUTeD8SRvzdUC'
-//   }
-// });
-
-// let mailOptions = {
-//   from: 'ruby.mcglynn48@ethereal.email',
-//   to: 'miglas9@yahoo.com',
-//   subject: 'Sending Email using Node.js',
-//   text: 'That was easy!'
-// };
-
-// transporter.sendMail(mailOptions, function (error, info) {
-//   if (error) {
-//     console.log(error);
-//   } else {
-//     console.log('Email sent: ' + info.response);
-//   }
-// });
-
-// "<h3>" + `${mailer[0].title} will be leaving Netflix on ${mailer[0].date} in ${mailer[0].counter} days` + "</h3>"

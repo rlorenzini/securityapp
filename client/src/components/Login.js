@@ -23,10 +23,8 @@ class Login extends Component {
         let token = response.data.token
         let username = response.data.username
         let userid = response.data.id
-        console.log(token)
-        console.log(userid)
 
-        localStorage.setItem('userid', userid)  //Mike TEST
+        localStorage.setItem('userid', userid)
         localStorage.setItem('jsonwebtoken', token)
         this.props.onAuthenticated(username, token)
         this.props.history.push('/')
