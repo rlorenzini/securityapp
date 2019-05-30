@@ -6,6 +6,8 @@
 
 When installing locally, open a terminal in the client and server folders separately and run ```npm install && npm start``` in the client folder and ```npm install && nodemon app.js``` in the server folder.
 
+**NOTE:** This application uses API keys which are hidden inside of .env.json files. Some of the API Keys have a cost associated with them, which is why we are not sharing them online. This means the application's features may not work as expected on your local machine. If you wish to get a free API Key and impliment it yourself, head on over to <a href="http://rapidapi.com">RapidAPI</a> and search for the UNOGS API.
+
 A login has been created for demonstration purposes.
 
 | USERNAME  | PASSWORD |
