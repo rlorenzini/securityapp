@@ -5,6 +5,7 @@ import replaceASCII from './utils/replaceASCII'
 import movieData from '../movieData.json'
 
 export class ExampleMovieList extends Component {
+
     constructor(props) {
         let url = "http://localhost:8080/expiring"
         fetch(url, {
@@ -62,6 +63,7 @@ export class ExampleMovieList extends Component {
                             </div>
                         </li>
                     </div>
+
 
                 )
 

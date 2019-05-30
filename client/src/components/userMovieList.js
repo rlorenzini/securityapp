@@ -34,6 +34,7 @@ export class MovieList extends Component {
                     loading: false,
                     movies: json
                 })
+
                 localStorage.setItem('movieData', JSON.stringify(json))
             })
     }

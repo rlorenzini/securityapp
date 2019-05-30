@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import handleCountdown from './utils/handleCountdown'
 import './styling/movieList.css'
 import replaceASCII from './utils/replaceASCII'
 import movieData from '../movieData.json'
@@ -31,13 +30,13 @@ export class NewMovies extends Component {
         fetch(url)
             .then(response => response.json())
             .then(json => {
+
                 this.setState({
                     ...this.state.movies,
                     loading: false,
                     movies: json
                 })
                 localStorage.setItem('newMovies', JSON.stringify(json))
-                console.log(json)
             })
     }
     render() {
@@ -64,6 +63,7 @@ export class NewMovies extends Component {
 
             })
         }
+
         return (
             <div className="listElementBody">
                 <div className="listElementHeader">

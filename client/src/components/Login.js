@@ -28,7 +28,7 @@ class Login extends Component {
       .then(response =>
         response.json()).then(json=>{
           if (json.status === 200) {
-          console.log(json)
+          // console.log(json)
           let token = json.token
           let username = json.username
           let userid = json.id
