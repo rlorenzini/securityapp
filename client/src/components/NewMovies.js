@@ -5,7 +5,7 @@ import replaceASCII from './utils/replaceASCII'
 import movieData from '../movieData.json'
 
 
-export class MovieList extends Component {
+export class NewMovies extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -13,7 +13,7 @@ export class MovieList extends Component {
         }
     }
     componentDidMount() {
-        let url = "http://localhost:8080/expiring"
+        let url = "http://localhost:8080/new-releases"
         fetch(url)
             .then(response => response.json())
             .then(json => {
@@ -21,12 +21,14 @@ export class MovieList extends Component {
                     ...this.state.movies,
                     movies: json
                 })
-                localStorage.setItem('movieData', JSON.stringify(json))
+                localStorage.setItem('newMovies', JSON.stringify(json))
+                console.log(json)
             })
     }
     render() {
         let movies = []
-        movies = JSON.parse(localStorage.getItem('movieData')).ITEMS
+        movies = JSON.parse(localStorage.getItem('newMovies')).ITEMS
+        console.log(movies)
         let movieItem = movies.map((movie) => {
             let str = replaceASCII(movie.title)
             return (
@@ -35,8 +37,8 @@ export class MovieList extends Component {
                         <div>
                             <img src={movie.image} alt={movie.image}></img>
                             <p className="listElementMovieTitle">{str}</p>
-                            <p className="listElementMovieEndDate">{movie.unogsdate}</p>
-                            <span className="listElementMovieCountdown">{(handleCountdown(movie.unogsdate) <= 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.unogsdate) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : `${handleCountdown(movie.unogsdate)} days remaining`}</span>
+                            {/* <p className="listElementMovieEndDate">{movie.unogsdate}</p> */}
+                            <span className="listElementMovieCountdown">Available</span>
                         </div>
                     </li>
                 </div>
@@ -47,7 +49,7 @@ export class MovieList extends Component {
         return (
             <div className="listElementBody">
                 <div className="listElementHeader">
-                    <h1>This is What's Leaving</h1>
+                    <h1>New Arrivals</h1>
                 </div>
                 <ul className="movieItemList">{movieItem}</ul>
             </div>

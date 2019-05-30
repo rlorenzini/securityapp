@@ -54,7 +54,7 @@ class WatchList extends Component {
             return (
                 <li key={movie.imdbid}>
                     <p className="listElementMovieTitle">{movie.title}</p>
-                    <span className="listElementMovieCountdown">{(handleCountdown(movie.date) === 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.date) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : (handleCountdown(movie.date) === 'Available') ? <p>Available</p> : <p>{handleCountdown(movie.date)} days remaining</p>}
+                    <span className="listElementMovieCountdown">{(handleCountdown(movie.date) <= 0) ? <p className="noLongerAvailable">No Longer Available</p> : (handleCountdown(movie.date) === 1) ? <p className="lastDayToWatch">Last Day to Watch</p> : (handleCountdown(movie.date) === 'Available') ? <p>Available</p> : <p>{handleCountdown(movie.date)} days remaining</p>}
                     </span>
                     <button onClick={this.removeMovie} id={movie.imdbid}>Remove</button>
                 </li >
@@ -63,7 +63,7 @@ class WatchList extends Component {
 
         return (
             <div className="userWatchListDiv">
-                <h1>Your WatchList</h1>
+                {(this.props.username === '') ? <h2>User WatchList</h2> : <h2>{this.props.username}'s WatchList</h2>}
                 <ul>{movieItems}</ul>
             </div >
         )
@@ -71,7 +71,8 @@ class WatchList extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        watchList: state.watchList
+        watchList: state.watchList,
+        username: state.username
     }
 }
 const mapDispatchToProps = (dispatch) => {

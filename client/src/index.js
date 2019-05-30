@@ -10,6 +10,7 @@ import Login from './components/Login';
 import { MovieList } from './components/userMovieList';
 import { ExampleMovieList } from './components/exampleMovieList';
 import { UserWatchList } from './components/UserWatchList';
+import { NewMovies } from './components/NewMovies'
 
 import * as serviceWorker from './serviceWorker';
 import reducer from './components/stores/reducers/reducer';
@@ -27,6 +28,7 @@ ReactDOM.render(
           <Route path='/' exact component={App} />
           <Route path='/userMovies' component={MovieList} />
           <Route path='/exampleMovies' component={ExampleMovieList} />
+          <Route path='/newArrivals' component={NewMovies} />
           <Route path='/user-watchList' component={UserWatchList} />
           <Route path='/login-page' component={Login} />
         </Switch>
