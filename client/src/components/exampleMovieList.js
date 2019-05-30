@@ -11,17 +11,17 @@ export class ExampleMovieList extends Component {
           movies: ''
       }
   }
-  componentDidMount() {
+  componentWillMount() {
       let url = "http://localhost:8080/expiring"
       fetch(url, {headers: {
       "Content-type": "application/json; charset=UTF-8"
     }})
           .then(response => response.json())
           .then(json => {
-              this.setState({
-                  ...this.state.movies,
-                  movies: json
-              })
+              // this.setState({
+              //     ...this.state.movies,
+              //     movies: json
+              // })
               localStorage.setItem('movieData', JSON.stringify(json))
           })
   }
