@@ -50,7 +50,11 @@ class FindAndAdd extends Component {
             })
         }).then((response) => response.json())
             .then(json => {
-                this.props.onUpdate(json)
+                if (json.status === 500) {
+                    alert(json.message)
+                } else {
+                    this.props.onUpdate(json)
+                }
             })
 
     }

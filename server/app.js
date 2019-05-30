@@ -123,7 +123,7 @@ schedule.scheduleJob('15 9 * * *', function () {
       fs.writeFile('./movieData.json', data)
     });
 })
-schedule.scheduleJob('12 16 * * *', function () {
+schedule.scheduleJob('16 9 * * *', function () {
   console.log('Daily API call initiated.');
   unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:new7:US&p=1&t=ns&st=adv")
     .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
@@ -135,7 +135,7 @@ schedule.scheduleJob('12 16 * * *', function () {
     });
 })
 
-schedule.scheduleJob('16 9 * * *', function () {
+schedule.scheduleJob('17 9 * * *', function () {
   emailUsers()
 })
 function authenticate(req, res, next) {
@@ -250,24 +250,54 @@ app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID
   let userid = parseInt(req.body.userid)
-
-  let movie = models.WatchList.build({
-    title: title,
-    imdbid: imdbID,
-    userid: userid
-  })
-  movie.save().then((savedMovie) => {
-  })
-    .then(() => {
-      models.WatchList.findAll({
-        where: {
-          userid: userid
-        }
+  models.WatchList.findAll({
+    where: {
+      imdbid: imdbID,
+      userid: userid
+    }
+  }).then((movie) => {
+    if (movie.length > 0) {
+      console.log(movie)
+      let message = "Movie is already in your watchlist"
+      res.status(500).json({ message: message, status: 500 })
+    } else {
+      let movie = models.WatchList.build({
+        title: title,
+        imdbid: imdbID,
+        userid: userid
       })
-        .then(result => {
-          res.json(result)
-        })
-    }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+      movie.save().then((savedMovie) => {
+      })
+        .then(() => {
+          models.WatchList.findAll({
+            where: {
+              userid: userid
+            }
+          })
+            .then(result => {
+              res.json(result)
+            })
+        }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+
+    }
+  })
+  // let movie = models.WatchList.build({
+  //   title: title,
+  //   imdbid: imdbID,
+  //   userid: userid
+  // })
+  // movie.save().then((savedMovie) => {
+  // })
+  //   .then(() => {
+  //     models.WatchList.findAll({
+  //       where: {
+  //         userid: userid
+  //       }
+  //     })
+  //       .then(result => {
+  //         res.json(result)
+  //       })
+  //   }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
 })
 
 //Getting USER WATCHLIST
