@@ -36,3 +36,11 @@ Once logged in, users can add movies to their personal watch list. When checked 
 Users can check the full list at any point, to see what will be leaving soon.
 
 <img src="images/deskLeaving.png"/>
+
+**New Releases Coming To Netflix**
+
+Users are now able to see a list of upcoming movies and shows which will be available on Netflix soon!
+
+<img src="images/deskNew.png"/>
+
+

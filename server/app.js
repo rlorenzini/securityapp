@@ -240,10 +240,6 @@ app.post('/login', (req, res) => {
       })
     }
   })
-  // .catch(()=>{
-  //   let message = "wrong username and password"
-  //   res.status(500).json({message:message})
-  // })
 })
 
 app.post('/add-movie', (req, res) => {
@@ -281,29 +277,11 @@ app.post('/add-movie', (req, res) => {
 
     }
   })
-  // let movie = models.WatchList.build({
-  //   title: title,
-  //   imdbid: imdbID,
-  //   userid: userid
-  // })
-  // movie.save().then((savedMovie) => {
-  // })
-  //   .then(() => {
-  //     models.WatchList.findAll({
-  //       where: {
-  //         userid: userid
-  //       }
-  //     })
-  //       .then(result => {
-  //         res.json(result)
-  //       })
-  //   }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
 })
 
 //Getting USER WATCHLIST
 app.post('/user-watch-list', (req, res) => {
   let userid = req.body.userid
-  // console.log(userid)
   models.WatchList.findAll({
     where: {
       userid: userid
