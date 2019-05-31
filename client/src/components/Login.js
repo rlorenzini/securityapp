@@ -60,7 +60,7 @@ class Login extends Component {
       <div className="loginBody">
         <h1>Login</h1>
         <input onChange={this.handleInputChange} name="username" placeholder="username"></input>
-        <input onChange={this.handleInputChange} name="password" placeholder="password"></input>
+        <input onChange={this.handleInputChange} name="password" type="password" placeholder="password"></input>
         <button onClick={this.handleSubmitLogin}>Login</button>
         <Register />
       </div>
