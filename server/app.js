@@ -172,7 +172,7 @@ app.post('/register', (req, res) => {
   let lastName = req.body.lastName
   let email = req.body.email
 
-  let emailRegEx = RegExp('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')
+  // let emailRegEx = RegExp('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')
   //standard email format
   let userRegEx = RegExp('([a-zA-Z0-9]{6,20})$')
   //username can contain a-z, A-Z, and 0-9, and has to be between
@@ -182,7 +182,7 @@ app.post('/register', (req, res) => {
   //password CANNOT be just letters
   //password must contain one lowercase letter, one uppercase letter, one number,
   //and must be between eight to twenty digits long
-  if (userRegEx.test(username) === true && pwdRegEx.test(password) === true && emailRegEx.test(email) === true) {
+  if (userRegEx.test(username) === true && pwdRegEx.test(password) === true) {
     models.User.findOne({
       where: {
         username: username
