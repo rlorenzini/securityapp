@@ -2,7 +2,7 @@
 
 **By Richard Lorenzini and Mike Starbuck**
 
-Hosted live on <a href="https://thelastcall.herokuapp.com/">HEROKU.</a>
+~Hosted live on HEROKU.~ 
 
 When installing locally, open a terminal in the client and server folders separately and run ```npm install && npm start``` in the client folder and ```npm install && nodemon app.js``` in the server folder.
 
