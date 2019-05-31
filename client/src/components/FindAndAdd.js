@@ -11,6 +11,7 @@ class FindAndAdd extends Component {
         this.state = {
             title: '',
             returnedMovies: [],
+            loading: false,
             userid: localStorage.getItem('userid')
         }
     }
@@ -22,11 +23,18 @@ class FindAndAdd extends Component {
         fetch(moviesURL)
             .then(response => response.json())
             .then(json => {
-                this.setState({
-                    returnedMovies: json.Search
-                })
-            }).then(() => {
-                console.log(this.state.returnedMovies)
+                console.log(json.Response)
+                if (json.Response === "False") {
+                    // alert("Search returned 0 matches")
+                    this.setState({
+                        loading: true,
+                    })
+                } else {
+                    this.setState({
+                        returnedMovies: json.Search,
+                        loading: false,
+                    })
+                }
             })
     }
 
@@ -61,15 +69,18 @@ class FindAndAdd extends Component {
 
     render() {
         let omdbList = this.state.returnedMovies
-        let movieItems = omdbList.map((movie) => {
-            return (
-                <li key={movie.imdbID}>
-                    <img className="omdb-poster" alt={movie.Poster} src={movie.Poster}></img>
-                    <p>{movie.Title}</p>
-                    <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
-                </li>
-            )
-        })
+        let movieItems = (<h3>Search Returned 0 Matches</h3>)
+        if (!this.state.loading) {
+            movieItems = omdbList.map((movie) => {
+                return (
+                    <li key={movie.imdbID}>
+                        <img className="omdb-poster" alt={movie.Poster} src={movie.Poster}></img>
+                        <p>{movie.Title}</p>
+                        <button onClick={this.handleAddToWatchList} name={movie.Title} id={movie.imdbID}>Add to Watch List</button>
+                    </li>
+                )
+            })
+        }
         return (
             <div className="omdbDiv">
                 <h2>Add a Movie</h2>
