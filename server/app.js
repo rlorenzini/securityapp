@@ -11,6 +11,7 @@ const express = require('express'),
   models = require('./models'),
   jwt = require('jsonwebtoken'),
   MovieData = require('./movieData.json'),
+  NewMovieData = require('./newMovies.json'),
   bcrypt = require('bcrypt'),
   SALT_ROUNDS = 10,
   myPlaintextPassword = 's0/\/\P4$$w0rD',
@@ -123,6 +124,18 @@ schedule.scheduleJob('15 9 * * *', function () {
     });
 })
 schedule.scheduleJob('16 9 * * *', function () {
+  console.log('Daily API call initiated.');
+  unirest.get("https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:new7:US&p=1&t=ns&st=adv")
+    .header("X-RapidAPI-Host", "unogs-unogs-v1.p.rapidapi.com")
+    .header("X-RapidAPI-Key", `${keys.MIKE_UNOGS_KEY} `)
+    .end(function (result) {
+      console.log(result.status, result.headers);
+      let data = JSON.stringify(result.body)
+      fs.writeFile('./newMovies.json', data)
+    });
+})
+
+schedule.scheduleJob('17 9 * * *', function () {
   emailUsers()
 })
 function authenticate(req, res, next) {
@@ -144,6 +157,9 @@ function authenticate(req, res, next) {
 }
 app.get('/expiring', (req, res) => {
   res.json(MovieData)
+})
+app.get('/new-releases', (req, res) => {
+  res.json(NewMovieData)
 })
 app.get('/username', authenticate, (req, res) => {
   res.send(currentUser[currentUser.length - 1])
@@ -205,8 +221,8 @@ app.post('/login', (req, res) => {
   }).then((user) => {
 
     if (user) {
-      bcrypt.compare(password,user.password,(error,result)=>{
-        if(result){
+      bcrypt.compare(password, user.password, (error, result) => {
+        if (result) {
           jwt.sign({ username: username }, 'secret',
             function (error, token) {
               if (token) {
@@ -218,46 +234,54 @@ app.post('/login', (req, res) => {
         }
         else {
           let message = "wrong username and password"
-          res.status(500).json({message:message, status: 500})
+          res.status(500).json({ message: message, status: 500 })
           console.log("wrong username and password")
         }
       })
     }
   })
-  // .catch(()=>{
-  //   let message = "wrong username and password"
-  //   res.status(500).json({message:message})
-  // })
 })
 
 app.post('/add-movie', (req, res) => {
   let title = req.body.title
   let imdbID = req.body.imdbID
   let userid = parseInt(req.body.userid)
-
-  let movie = models.WatchList.build({
-    title: title,
-    imdbid: imdbID,
-    userid: userid
-  })
-  movie.save().then((savedMovie) => {
-  })
-    .then(() => {
-      models.WatchList.findAll({
-        where: {
-          userid: userid
-        }
+  models.WatchList.findAll({
+    where: {
+      imdbid: imdbID,
+      userid: userid
+    }
+  }).then((movie) => {
+    if (movie.length > 0) {
+      console.log(movie)
+      let message = "Movie is already in your watchlist"
+      res.status(500).json({ message: message, status: 500 })
+    } else {
+      let movie = models.WatchList.build({
+        title: title,
+        imdbid: imdbID,
+        userid: userid
       })
-        .then(result => {
-          res.json(result)
-        })
-    }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+      movie.save().then((savedMovie) => {
+      })
+        .then(() => {
+          models.WatchList.findAll({
+            where: {
+              userid: userid
+            }
+          })
+            .then(result => {
+              res.json(result)
+            })
+        }).catch(error => res.json({ success: false, message: "Movie was NOT added" }))
+
+    }
+  })
 })
 
 //Getting USER WATCHLIST
 app.post('/user-watch-list', (req, res) => {
   let userid = req.body.userid
-  // console.log(userid)
   models.WatchList.findAll({
     where: {
       userid: userid
@@ -331,3 +355,4 @@ function getDays(exp) {
   let goneDate = new Date(exp)
   return Math.ceil((goneDate - today.getTime()) / one_day)
 }
+// api endpoint new releases: "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get:new7:US&p=1&t=ns&st=adv"
